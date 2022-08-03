@@ -51,7 +51,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
   /***/
   function packageJson(module) {
-    module.exports = JSON.parse("{\"name\":\"dating-app-spa\",\"version\":\"1.0.3\",\"scripts\":{\"ng\":\"ng\",\"start\":\"ng serve\",\"prebuild\":\"npm --no-git-tag-version version patch\",\"build\":\"ng build\",\"test\":\"ng test\",\"lint\":\"ng lint\",\"e2e\":\"ng e2e\"},\"private\":true,\"dependencies\":{\"@angular/animations\":\"~9.0.6\",\"@angular/common\":\"~9.0.6\",\"@angular/compiler\":\"~9.0.6\",\"@angular/core\":\"~9.0.6\",\"@angular/forms\":\"~9.0.6\",\"@angular/platform-browser\":\"~9.0.6\",\"@angular/platform-browser-dynamic\":\"~9.0.6\",\"@angular/router\":\"~9.0.6\",\"@auth0/angular-jwt\":\"^4.0.0\",\"alertifyjs\":\"^1.13.1\",\"bootstrap\":\"^4.3.1\",\"bootswatch\":\"^4.5.0\",\"font-awesome\":\"^4.7.0\",\"http-server\":\"^14.1.1\",\"ng2-file-upload\":\"^1.4.0\",\"ngx-bootstrap\":\"^5.6.1\",\"ngx-gallery-9\":\"^1.0.6\",\"ngx-spinner\":\"^9.0.2\",\"ngx-timeago\":\"^1.0.4\",\"rxjs\":\"~6.5.4\",\"tslib\":\"^1.10.0\",\"zone.js\":\"~0.10.2\"},\"devDependencies\":{\"@angular-devkit/build-angular\":\"^0.900.7\",\"@angular/cli\":\"~9.0.6\",\"@angular/compiler-cli\":\"~9.0.6\",\"@angular/language-service\":\"~9.0.6\",\"@types/jasmine\":\"~3.5.0\",\"@types/jasminewd2\":\"~2.0.3\",\"@types/node\":\"^12.11.1\",\"codelyzer\":\"^5.1.2\",\"jasmine-spec-reporter\":\"~4.2.1\",\"karma\":\"~4.3.0\",\"karma-chrome-launcher\":\"~3.1.0\",\"karma-coverage-istanbul-reporter\":\"~2.1.0\",\"karma-jasmine\":\"~2.0.1\",\"karma-jasmine-html-reporter\":\"^1.4.2\",\"protractor\":\"~5.4.3\",\"ts-node\":\"~8.3.0\",\"tslint\":\"~5.18.0\",\"typescript\":\"~3.7.5\"}}");
+    module.exports = JSON.parse("{\"name\":\"dating-app-spa\",\"version\":\"1.0.4\",\"scripts\":{\"ng\":\"ng\",\"start\":\"ng serve\",\"prebuild\":\"npm --no-git-tag-version version patch\",\"build\":\"ng build\",\"test\":\"ng test\",\"lint\":\"ng lint\",\"e2e\":\"ng e2e\"},\"private\":true,\"dependencies\":{\"@angular/animations\":\"~9.0.6\",\"@angular/common\":\"~9.0.6\",\"@angular/compiler\":\"~9.0.6\",\"@angular/core\":\"~9.0.6\",\"@angular/forms\":\"~9.0.6\",\"@angular/platform-browser\":\"~9.0.6\",\"@angular/platform-browser-dynamic\":\"~9.0.6\",\"@angular/router\":\"~9.0.6\",\"@auth0/angular-jwt\":\"^4.0.0\",\"alertifyjs\":\"^1.13.1\",\"bootstrap\":\"^4.3.1\",\"bootswatch\":\"^4.5.0\",\"font-awesome\":\"^4.7.0\",\"http-server\":\"^14.1.1\",\"ng2-file-upload\":\"^1.4.0\",\"ngx-bootstrap\":\"^5.6.1\",\"ngx-gallery-9\":\"^1.0.6\",\"ngx-spinner\":\"^9.0.2\",\"ngx-timeago\":\"^1.0.4\",\"rxjs\":\"~6.5.4\",\"tslib\":\"^1.10.0\",\"zone.js\":\"~0.10.2\"},\"devDependencies\":{\"@angular-devkit/build-angular\":\"^0.900.7\",\"@angular/cli\":\"~9.0.6\",\"@angular/compiler-cli\":\"~9.0.6\",\"@angular/language-service\":\"~9.0.6\",\"@types/jasmine\":\"~3.5.0\",\"@types/jasminewd2\":\"~2.0.3\",\"@types/node\":\"^12.11.1\",\"codelyzer\":\"^5.1.2\",\"jasmine-spec-reporter\":\"~4.2.1\",\"karma\":\"~4.3.0\",\"karma-chrome-launcher\":\"~3.1.0\",\"karma-coverage-istanbul-reporter\":\"~2.1.0\",\"karma-jasmine\":\"~2.0.1\",\"karma-jasmine-html-reporter\":\"^1.4.2\",\"protractor\":\"~5.4.3\",\"ts-node\":\"~8.3.0\",\"tslint\":\"~5.18.0\",\"typescript\":\"~3.7.5\"}}");
     /***/
   },
 
@@ -1108,7 +1108,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           params = params.append('fields[]', 'ActivitiesOfInterest2');
           params = params.append('fields[]', 'MainImage');
           params = params.append('fields[]', 'Favorites');
-          params = params.append('filterByFormula', "AND({Email}='" + model.Username + "',{Password}='" + model.Password + "')");
+
+          if (model) {
+            params = params.append('filterByFormula', "AND({Email}='" + model.Username + "',{Password}='" + model.Password + "')");
+          } else {
+            var memberId = this.getCurrentUser().memberId;
+            params = params.append('filterByFormula', "FIND(\"".concat(memberId, "\", MemberId) > 0"));
+          }
+
           return this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["API_PATH"] + 'Members', {
             headers: headers,
             params: params
@@ -2476,6 +2483,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _contact_us_contact_us_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(
     /*! ./contact-us/contact-us.component */
     "./src/app/contact-us/contact-us.component.ts");
+    /* harmony import */
+
+
+    var _member_reload_member_reload_component__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(
+    /*! ./member-reload/member-reload.component */
+    "./src/app/member-reload/member-reload.component.ts");
 
     Object(_angular_common__WEBPACK_IMPORTED_MODULE_38__["registerLocaleData"])(_angular_common_locales_pt__WEBPACK_IMPORTED_MODULE_39___default.a);
 
@@ -2512,7 +2525,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     (function () {
       (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](AppModule, {
-        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_17__["AppComponent"], _values_values_component__WEBPACK_IMPORTED_MODULE_18__["ValuesComponent"], _nav_nav_component__WEBPACK_IMPORTED_MODULE_19__["NavComponent"], _home_home_component__WEBPACK_IMPORTED_MODULE_20__["HomeComponent"], _register_register_component__WEBPACK_IMPORTED_MODULE_25__["RegisterComponent"], _lists_lists_component__WEBPACK_IMPORTED_MODULE_27__["ListsComponent"], _messages_messages_component__WEBPACK_IMPORTED_MODULE_28__["MessagesComponent"], _members_member_list_member_list_component__WEBPACK_IMPORTED_MODULE_21__["MemberListComponent"], _members_member_card_member_card_component__WEBPACK_IMPORTED_MODULE_22__["MemberCardComponent"], _members_member_detail_member_detail_component__WEBPACK_IMPORTED_MODULE_24__["MemberDetailComponent"], _members_member_edit_member_edit_component__WEBPACK_IMPORTED_MODULE_32__["MemberEditComponent"], _members_photo_editor_photo_editor_component__WEBPACK_IMPORTED_MODULE_34__["PhotoEditorComponent"], _members_member_messages_member_messages_component__WEBPACK_IMPORTED_MODULE_23__["MemberMessagesComponent"], _directives_hasRole_directive__WEBPACK_IMPORTED_MODULE_37__["HasRoleDirective"], _contact_us_contact_us_component__WEBPACK_IMPORTED_MODULE_40__["ContactUsComponent"]],
+        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_17__["AppComponent"], _values_values_component__WEBPACK_IMPORTED_MODULE_18__["ValuesComponent"], _nav_nav_component__WEBPACK_IMPORTED_MODULE_19__["NavComponent"], _home_home_component__WEBPACK_IMPORTED_MODULE_20__["HomeComponent"], _register_register_component__WEBPACK_IMPORTED_MODULE_25__["RegisterComponent"], _lists_lists_component__WEBPACK_IMPORTED_MODULE_27__["ListsComponent"], _messages_messages_component__WEBPACK_IMPORTED_MODULE_28__["MessagesComponent"], _members_member_list_member_list_component__WEBPACK_IMPORTED_MODULE_21__["MemberListComponent"], _members_member_card_member_card_component__WEBPACK_IMPORTED_MODULE_22__["MemberCardComponent"], _members_member_detail_member_detail_component__WEBPACK_IMPORTED_MODULE_24__["MemberDetailComponent"], _members_member_edit_member_edit_component__WEBPACK_IMPORTED_MODULE_32__["MemberEditComponent"], _members_photo_editor_photo_editor_component__WEBPACK_IMPORTED_MODULE_34__["PhotoEditorComponent"], _members_member_messages_member_messages_component__WEBPACK_IMPORTED_MODULE_23__["MemberMessagesComponent"], _directives_hasRole_directive__WEBPACK_IMPORTED_MODULE_37__["HasRoleDirective"], _contact_us_contact_us_component__WEBPACK_IMPORTED_MODULE_40__["ContactUsComponent"], _member_reload_member_reload_component__WEBPACK_IMPORTED_MODULE_41__["MemberReloadComponent"]],
         imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"], _angular_router__WEBPACK_IMPORTED_MODULE_7__["RouterModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__["BrowserAnimationsModule"], ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_6__["BsDropdownModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClientModule"], ngx_bootstrap_buttons__WEBPACK_IMPORTED_MODULE_14__["ButtonsModule"], _angular_router__WEBPACK_IMPORTED_MODULE_7__["RouterModule"], _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_4__["JwtModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"], ngx_bootstrap_tabs__WEBPACK_IMPORTED_MODULE_8__["TabsModule"], ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_11__["BsDatepickerModule"], ngx_timeago__WEBPACK_IMPORTED_MODULE_12__["TimeagoModule"], ngx_bootstrap_pagination__WEBPACK_IMPORTED_MODULE_13__["PaginationModule"], ngx_gallery_9__WEBPACK_IMPORTED_MODULE_9__["NgxGalleryModule"], ng2_file_upload__WEBPACK_IMPORTED_MODULE_10__["FileUploadModule"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_15__["ModalModule"], ngx_spinner__WEBPACK_IMPORTED_MODULE_16__["NgxSpinnerModule"]]
       });
     })();
@@ -2523,7 +2536,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](AppModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"],
         args: [{
-          declarations: [_app_component__WEBPACK_IMPORTED_MODULE_17__["AppComponent"], _values_values_component__WEBPACK_IMPORTED_MODULE_18__["ValuesComponent"], _nav_nav_component__WEBPACK_IMPORTED_MODULE_19__["NavComponent"], _home_home_component__WEBPACK_IMPORTED_MODULE_20__["HomeComponent"], _register_register_component__WEBPACK_IMPORTED_MODULE_25__["RegisterComponent"], _lists_lists_component__WEBPACK_IMPORTED_MODULE_27__["ListsComponent"], _messages_messages_component__WEBPACK_IMPORTED_MODULE_28__["MessagesComponent"], _members_member_list_member_list_component__WEBPACK_IMPORTED_MODULE_21__["MemberListComponent"], _members_member_card_member_card_component__WEBPACK_IMPORTED_MODULE_22__["MemberCardComponent"], _members_member_detail_member_detail_component__WEBPACK_IMPORTED_MODULE_24__["MemberDetailComponent"], _members_member_edit_member_edit_component__WEBPACK_IMPORTED_MODULE_32__["MemberEditComponent"], _members_photo_editor_photo_editor_component__WEBPACK_IMPORTED_MODULE_34__["PhotoEditorComponent"], _members_member_messages_member_messages_component__WEBPACK_IMPORTED_MODULE_23__["MemberMessagesComponent"], _directives_hasRole_directive__WEBPACK_IMPORTED_MODULE_37__["HasRoleDirective"], _contact_us_contact_us_component__WEBPACK_IMPORTED_MODULE_40__["ContactUsComponent"]],
+          declarations: [_app_component__WEBPACK_IMPORTED_MODULE_17__["AppComponent"], _values_values_component__WEBPACK_IMPORTED_MODULE_18__["ValuesComponent"], _nav_nav_component__WEBPACK_IMPORTED_MODULE_19__["NavComponent"], _home_home_component__WEBPACK_IMPORTED_MODULE_20__["HomeComponent"], _register_register_component__WEBPACK_IMPORTED_MODULE_25__["RegisterComponent"], _lists_lists_component__WEBPACK_IMPORTED_MODULE_27__["ListsComponent"], _messages_messages_component__WEBPACK_IMPORTED_MODULE_28__["MessagesComponent"], _members_member_list_member_list_component__WEBPACK_IMPORTED_MODULE_21__["MemberListComponent"], _members_member_card_member_card_component__WEBPACK_IMPORTED_MODULE_22__["MemberCardComponent"], _members_member_detail_member_detail_component__WEBPACK_IMPORTED_MODULE_24__["MemberDetailComponent"], _members_member_edit_member_edit_component__WEBPACK_IMPORTED_MODULE_32__["MemberEditComponent"], _members_photo_editor_photo_editor_component__WEBPACK_IMPORTED_MODULE_34__["PhotoEditorComponent"], _members_member_messages_member_messages_component__WEBPACK_IMPORTED_MODULE_23__["MemberMessagesComponent"], _directives_hasRole_directive__WEBPACK_IMPORTED_MODULE_37__["HasRoleDirective"], _contact_us_contact_us_component__WEBPACK_IMPORTED_MODULE_40__["ContactUsComponent"], _member_reload_member_reload_component__WEBPACK_IMPORTED_MODULE_41__["MemberReloadComponent"]],
           imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"], _angular_router__WEBPACK_IMPORTED_MODULE_7__["RouterModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__["BrowserAnimationsModule"], ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_6__["BsDropdownModule"].forRoot(), _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClientModule"], ngx_bootstrap_buttons__WEBPACK_IMPORTED_MODULE_14__["ButtonsModule"].forRoot(), _angular_router__WEBPACK_IMPORTED_MODULE_7__["RouterModule"].forRoot(_routes__WEBPACK_IMPORTED_MODULE_29__["appRoutes"]), _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_4__["JwtModule"].forRoot({
             config: {
               tokenGetter: tokenGetter,
@@ -2943,7 +2956,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "p", 6);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5, "Navegue na Listas de Crist\xE3os, filtre por faixa et\xE1ria e UF!");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5, "Navegue na Listas de Crist\xE3os, filtre por idade e UF!");
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -3100,6 +3113,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.spinner = spinner;
         this.sanitizer = sanitizer;
         this.version = src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].appVersion;
+        this.year = new Date().getFullYear();
       }
 
       _createClass(HomeComponent, [{
@@ -3145,7 +3159,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       type: HomeComponent,
       selectors: [["app-home"]],
       decls: 7,
-      vars: 4,
+      vars: 5,
       consts: [["class", "container mt-5", 4, "ngIf", "ngIfThen", "ngIfElse"], ["loggedInTemplate", ""], ["loggedOutTemplate", ""], [1, "footer"], [1, "container", "mt-5"], [2, "text-align", "center"], [1, "lead"], [1, "text-center"], [1, "btn", "btn-info", "btn-lg", "mr-2", 3, "click"], ["style", "text-align:center", 4, "ngIf"], [1, "container"], [1, "row", "justify-content-center"], ["class", "col-8", 4, "ngIf"], [1, "btn", "btn-primary", "btn-lg", "mr-2", 3, "click"], [1, "col-8"], ["frameborder", "0", "onmousewheel", "", "width", "100%", "height", "533", 1, "airtable-embed", 3, "src", "load"]],
       template: function HomeComponent_Template(rf, ctx) {
         if (rf & 1) {
@@ -3171,7 +3185,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" \xA9 2022 Var\xE3o Varoa. Todos os direitos reservados - Vers\xE3o ", ctx.version, "\xA0\xA0\xA0\n");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"](" \xA9 ", ctx.year, " Var\xE3o Varoa. Todos os direitos reservados - Vers\xE3o ", ctx.version, "\xA0\xA0\xA0\n");
         }
       },
       directives: [_angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"]],
@@ -3275,11 +3289,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var user_r103 = ctx.$implicit;
+        var user_r105 = ctx.$implicit;
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("user", user_r103);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("user", user_r105);
       }
     }
 
@@ -3303,11 +3317,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var ctx_r102 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+        var ctx_r104 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", ctx_r102.likesParam === "Likers" ? "Voc\xEA ainda n\xE3o recebeu uma curtida, navegue nas listas de Crist\xE3os e entre em contato!" : "Voc\xEA ainda n\xE3o curtiu ningu\xE9m, veja quem te curtiu ou navegue nas listas de Crist\xE3os!", "");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", ctx_r104.likesParam === "Likers" ? "Voc\xEA ainda n\xE3o recebeu uma curtida, navegue nas listas de Crist\xE3os e entre em contato!" : "Voc\xEA ainda n\xE3o curtiu ningu\xE9m, veja quem te curtiu ou navegue nas listas de Crist\xE3os!", "");
       }
     }
 
@@ -3470,6 +3484,115 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
   },
 
   /***/
+  "./src/app/member-reload/member-reload.component.ts":
+  /*!**********************************************************!*\
+    !*** ./src/app/member-reload/member-reload.component.ts ***!
+    \**********************************************************/
+
+  /*! exports provided: MemberReloadComponent */
+
+  /***/
+  function srcAppMemberReloadMemberReloadComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "MemberReloadComponent", function () {
+      return MemberReloadComponent;
+    });
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _services_Auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! ../_services/Auth.service */
+    "./src/app/_services/Auth.service.ts");
+    /* harmony import */
+
+
+    var _services_Alertify_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ../_services/Alertify.service */
+    "./src/app/_services/Alertify.service.ts");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+
+    var MemberReloadComponent =
+    /*#__PURE__*/
+    function () {
+      function MemberReloadComponent(authService, alertify, router) {
+        _classCallCheck(this, MemberReloadComponent);
+
+        this.authService = authService;
+        this.alertify = alertify;
+        this.router = router;
+      }
+
+      _createClass(MemberReloadComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          var _this13 = this;
+
+          this.authService.loginAirtable(null).subscribe(function (next) {
+            _this13.alertify.success('Dados atualizados e carregados com Sucesso!');
+
+            _this13.router.navigate(['/home']);
+          }, function (error) {
+            _this13.alertify.error('Falha ao carregar seus dados!');
+          });
+        }
+      }]);
+
+      return MemberReloadComponent;
+    }();
+
+    MemberReloadComponent.ɵfac = function MemberReloadComponent_Factory(t) {
+      return new (t || MemberReloadComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_Auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_Alertify_service__WEBPACK_IMPORTED_MODULE_2__["AlertifyService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]));
+    };
+
+    MemberReloadComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
+      type: MemberReloadComponent,
+      selectors: [["app-member-reload"]],
+      decls: 0,
+      vars: 0,
+      template: function MemberReloadComponent_Template(rf, ctx) {},
+      styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL21lbWJlci1yZWxvYWQvbWVtYmVyLXJlbG9hZC5jb21wb25lbnQuY3NzIn0= */"]
+    });
+    /*@__PURE__*/
+
+    (function () {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MemberReloadComponent, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
+        args: [{
+          selector: 'app-member-reload',
+          templateUrl: './member-reload.component.html',
+          styleUrls: ['./member-reload.component.css']
+        }]
+      }], function () {
+        return [{
+          type: _services_Auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthService"]
+        }, {
+          type: _services_Alertify_service__WEBPACK_IMPORTED_MODULE_2__["AlertifyService"]
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]
+        }];
+      }, null);
+    })();
+    /***/
+
+  },
+
+  /***/
   "./src/app/members/member-card/member-card.component.ts":
   /*!**************************************************************!*\
     !*** ./src/app/members/member-card/member-card.component.ts ***!
@@ -3589,28 +3712,28 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "sendLike",
         value: function sendLike() {
-          var _this13 = this;
+          var _this14 = this;
 
           this.userService.saveLike(this.user.memberId, true).subscribe(function (response) {
-            _this13.alertifyService.success('Você curtiu ' + _this13.user.knownAs);
+            _this14.alertifyService.success('Você curtiu ' + _this14.user.knownAs);
 
-            _this13.user.isLiked = true;
+            _this14.user.isLiked = true;
           }, function (error) {
-            _this13.alertifyService.error('Erro ao curtir, tente novamente mais tarde!', error);
+            _this14.alertifyService.error('Erro ao curtir, tente novamente mais tarde!', error);
           });
         }
       }, {
         key: "sendDislike",
         value: function sendDislike() {
-          var _this14 = this;
+          var _this15 = this;
 
           this.alertifyService.confirm('Descurtir?', "Deseja mesmo descurtir ".concat(this.user.knownAs, " ?"), function () {
-            _this14.userService.saveLike(_this14.user.memberId, false).subscribe(function (response) {
-              _this14.alertifyService.success('Você descurtiu ' + _this14.user.knownAs);
+            _this15.userService.saveLike(_this15.user.memberId, false).subscribe(function (response) {
+              _this15.alertifyService.success('Você descurtiu ' + _this15.user.knownAs);
 
-              _this14.user.isLiked = false;
+              _this15.user.isLiked = false;
             }, function (error) {
-              _this14.alertifyService.error('Erro ao descurtir, tente novamente mais tarde!', error);
+              _this15.alertifyService.error('Erro ao descurtir, tente novamente mais tarde!', error);
             });
           });
         }
@@ -3966,9 +4089,35 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return ctx_r87.editUser();
         });
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](2, "i", 40);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "Editar Dados do Perfil");
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, " Editar");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "button", 37);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function MemberDetailComponent_div_31_Template_button_click_3_listener() {
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r88);
+
+          var ctx_r89 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+
+          return ctx_r89.editMainImage();
+        });
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](4, "Editar Foto Principal");
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](5, "button", 35);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function MemberDetailComponent_div_31_Template_button_click_5_listener() {
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r88);
+
+          var ctx_r90 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+
+          return ctx_r90.editOtherImages();
+        });
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](6, "Editar Demais Fotos");
 
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
@@ -3982,7 +4131,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "strong");
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "Aguarde! Carregando seu Perfil...");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "Aguarde! Carregando dados...");
 
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
@@ -3992,18 +4141,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function MemberDetailComponent_div_34_Template(rf, ctx) {
       if (rf & 1) {
-        var _r90 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+        var _r92 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
 
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 19);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "iframe", 41);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "iframe", 40);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("load", function MemberDetailComponent_div_34_Template_iframe_load_1_listener() {
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r90);
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r92);
 
-          var ctx_r89 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+          var ctx_r91 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
 
-          return ctx_r89.hideSpinner();
+          return ctx_r91.hideSpinner();
         });
 
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -4024,7 +4173,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "strong");
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "i", 42);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "i", 41);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, " O que busco:");
 
@@ -4036,7 +4185,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "strong");
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "i", 43);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "i", 42);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, " Igreja que frequenta:");
 
@@ -4060,7 +4209,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "strong");
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "i", 44);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "i", 43);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, " Interesses:");
 
@@ -4070,7 +4219,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function MemberDetailComponent_span_55_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "span", 45);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "span", 44);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1);
 
@@ -4078,11 +4227,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var interest_r91 = ctx.$implicit;
+        var interest_r93 = ctx.$implicit;
 
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](interest_r91);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](interest_r93);
       }
     }
 
@@ -4448,7 +4597,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function MemberDetailComponent_app_member_messages_80_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "app-member-messages", 46);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "app-member-messages", 45);
       }
 
       if (rf & 2) {
@@ -4460,7 +4609,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function MemberDetailComponent_div_81_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 47);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 46);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "strong");
 
@@ -4489,17 +4638,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(MemberDetailComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this15 = this;
+          var _this16 = this;
 
           this.route.data.subscribe(function (data) {
-            _this15.user = data["user"];
+            _this16.user = data["user"];
 
-            if (_this15.user.isActiveUser) {
-              var fields = "?prefill_MemberIdToUpdate=".concat(_this15.user.memberId) + "&prefill_Name=".concat(_this15.user.knownAs) + "&prefill_DateOfBirth=".concat(_this15.user.dateOfBirth) + "&prefill_County=".concat(_this15.user.county) + "&prefill_City=".concat(_this15.user.city) + "&prefill_About=".concat(_this15.user.introduction) + "&prefill_Seek=".concat(_this15.user.lookingFor) + "&prefill_ChristianTime=".concat(_this15.user.christianTime) + "&prefill_Church=".concat(_this15.user.church) + "&prefill_ConnectGroup=".concat(_this15.user.connectGroup) + "&prefill_Baptized=".concat(_this15.user.baptized) + "&prefill_OtherCounty=".concat(_this15.user.otherCounty) + "&prefill_Height=".concat(_this15.user.height) + "&prefill_MaritalStatus=".concat(_this15.user.maritalStatus) + "&prefill_Education=".concat(_this15.user.education) + "&prefill_HaveKids=".concat(_this15.user.haveKids) + "&prefill_WantKids=".concat(_this15.user.wantKids) + "&prefill_ChurchAttendance=".concat(_this15.user.churchAttendance) + "&prefill_Relationship=".concat(_this15.user.relationship) + "&prefill_ActivitiesOfInterest2=".concat(_this15.user.interestsArray) + "&prefill_RelatioshipWithKids=".concat(_this15.user.relatioshipWithKids) + "&prefill_HolyFasting=".concat(_this15.user.holyFasting) + "&prefill_HolyRelatioship=".concat(_this15.user.holyRelatioship) + "&prefill_Smoke=".concat(_this15.user.smoke) + "&prefill_OtherCountyMove=".concat(_this15.user.otherCountyMove) + "&prefill_Sexo=".concat(_this15.user.gender);
-              _this15.editUrl = _this15.sanitizer.bypassSecurityTrustResourceUrl("https://airtable.com/embed/".concat(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["EDIT_FORM"]).concat(fields));
+            if (_this16.user.isActiveUser) {
+              _this16.fields = "?prefill_MemberIdToUpdate=".concat(_this16.user.memberId) + "&prefill_Name=".concat(_this16.user.knownAs) + "&prefill_DateOfBirth=".concat(_this16.user.dateOfBirth) + "&prefill_County=".concat(_this16.user.county) + "&prefill_City=".concat(_this16.user.city) + "&prefill_About=".concat(_this16.user.introduction) + "&prefill_Seek=".concat(_this16.user.lookingFor) + "&prefill_ChristianTime=".concat(_this16.user.christianTime) + "&prefill_Church=".concat(_this16.user.church) + "&prefill_ConnectGroup=".concat(_this16.user.connectGroup) + "&prefill_Baptized=".concat(_this16.user.baptized) + "&prefill_OtherCounty=".concat(_this16.user.otherCounty) + "&prefill_Height=".concat(_this16.user.height) + "&prefill_MaritalStatus=".concat(_this16.user.maritalStatus) + "&prefill_Education=".concat(_this16.user.education) + "&prefill_HaveKids=".concat(_this16.user.haveKids) + "&prefill_WantKids=".concat(_this16.user.wantKids) + "&prefill_ChurchAttendance=".concat(_this16.user.churchAttendance) + "&prefill_Relationship=".concat(_this16.user.relationship) + "&prefill_ActivitiesOfInterest2=".concat(_this16.user.interestsArray) + "&prefill_RelatioshipWithKids=".concat(_this16.user.relatioshipWithKids) + "&prefill_HolyFasting=".concat(_this16.user.holyFasting) + "&prefill_HolyRelatioship=".concat(_this16.user.holyRelatioship) + "&prefill_Smoke=".concat(_this16.user.smoke) + "&prefill_OtherCountyMove=".concat(_this16.user.otherCountyMove) + "&prefill_Sexo=".concat(_this16.user.gender);
             }
 
-            _this15.galleryOptions = [{
+            _this16.galleryOptions = [{
               width: "400px",
               height: "400px",
               thumbnailsColumns: 4,
@@ -4516,38 +4664,38 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               breakpoint: 400,
               preview: false
             }];
-            _this15.galleryImages = _this15.getImages();
+            _this16.galleryImages = _this16.getImages();
           });
           this.route.queryParams.subscribe(function (params) {
             var selectedTab = params["tab"];
-            _this15.memberTabs.tabs[selectedTab > 0 ? selectedTab : 0].active = true;
+            _this16.memberTabs.tabs[selectedTab > 0 ? selectedTab : 0].active = true;
           });
         }
       }, {
         key: "sendLike",
         value: function sendLike() {
-          var _this16 = this;
+          var _this17 = this;
 
           this.userService.saveLike(this.user.memberId, true).subscribe(function (response) {
-            _this16.alertifyService.success('Você curtiu ' + _this16.user.knownAs);
+            _this17.alertifyService.success('Você curtiu ' + _this17.user.knownAs);
 
-            _this16.user.isLiked = true;
+            _this17.user.isLiked = true;
           }, function (error) {
-            _this16.alertifyService.error('Erro ao curtir, tente novamente mais tarde!', error);
+            _this17.alertifyService.error('Erro ao curtir, tente novamente mais tarde!', error);
           });
         }
       }, {
         key: "sendDislike",
         value: function sendDislike() {
-          var _this17 = this;
+          var _this18 = this;
 
           this.alertifyService.confirm('Descurtir?', "Deseja mesmo descurtir ".concat(this.user.knownAs, " ?"), function () {
-            _this17.userService.saveLike(_this17.user.memberId, false).subscribe(function (response) {
-              _this17.alertifyService.success('Você descurtiu ' + _this17.user.knownAs);
+            _this18.userService.saveLike(_this18.user.memberId, false).subscribe(function (response) {
+              _this18.alertifyService.success('Você descurtiu ' + _this18.user.knownAs);
 
-              _this17.user.isLiked = false;
+              _this18.user.isLiked = false;
             }, function (error) {
-              _this17.alertifyService.error('Erro ao descurtir, tente novamente mais tarde!', error);
+              _this18.alertifyService.error('Erro ao descurtir, tente novamente mais tarde!', error);
             });
           });
         }
@@ -4589,17 +4737,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deleteUser",
         value: function deleteUser() {
-          var _this18 = this;
+          var _this19 = this;
 
           this.alertifyService.confirm('Deletar?', "Deseja mesmo deletar o seu Perfil? N\xE3o prefere apenas desativar e esconder ele? Clique em OK para deletar!", function () {
-            _this18.userService.deleteUser(_this18.user.memberId).subscribe(function (response) {
-              _this18.alertifyService.success('Seu Perfil foi deletado do sistema com sucesso!');
+            _this19.userService.deleteUser(_this19.user.memberId).subscribe(function (response) {
+              _this19.alertifyService.success('Seu Perfil foi deletado do sistema com sucesso!');
 
               localStorage.removeItem('currentUser');
 
-              _this18.router.navigate(['/home']);
+              _this19.router.navigate(['/home']);
             }, function (error) {
-              _this18.alertifyService.error('Erro ao deletar, tente novamente mais tarde!', error);
+              _this19.alertifyService.error('Erro ao deletar, tente novamente mais tarde!', error);
             });
           });
         } //TODO Continue here
@@ -4607,15 +4755,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "disableUser",
         value: function disableUser() {
-          var _this19 = this;
+          var _this20 = this;
 
           this.alertifyService.confirm('Desativar?', "Deseja mesmo desativar e esconder o seu Perfil?", function () {
-            _this19.userService.deleteUser(_this19.user.memberId).subscribe(function (response) {
-              _this19.alertifyService.success('Seu Perfil foi desativado do sistema com sucesso!');
+            _this20.userService.deleteUser(_this20.user.memberId).subscribe(function (response) {
+              _this20.alertifyService.success('Seu Perfil foi desativado do sistema com sucesso!');
 
-              _this19.router.navigate(['/home']);
+              _this20.router.navigate(['/home']);
             }, function (error) {
-              _this19.alertifyService.error('Erro ao deletar, tente novamente mais tarde!', error);
+              _this20.alertifyService.error('Erro ao deletar, tente novamente mais tarde!', error);
             });
           });
         }
@@ -4625,6 +4773,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.editProfile = !this.editProfile;
 
           if (this.editProfile) {
+            this.editUrl = this.sanitizer.bypassSecurityTrustResourceUrl("https://airtable.com/embed/".concat(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["EDIT_FORM"]).concat(this.fields));
+            this.loading = true; // this.spinner.show();      
+          }
+        }
+      }, {
+        key: "editMainImage",
+        value: function editMainImage() {
+          this.editProfile = !this.editProfile;
+
+          if (this.editProfile) {
+            this.editUrl = this.sanitizer.bypassSecurityTrustResourceUrl("https://airtable.com/embed/".concat(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["MAIN_IMAGE"], "?prefill_MemberIdToUpdate=").concat(this.user.memberId));
+            this.loading = true; // this.spinner.show();      
+          }
+        }
+      }, {
+        key: "editOtherImages",
+        value: function editOtherImages() {
+          this.editProfile = !this.editProfile;
+
+          if (this.editProfile) {
+            this.editUrl = this.sanitizer.bypassSecurityTrustResourceUrl("https://airtable.com/embed/".concat(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["OTHER_IMAGES"], "?prefill_MemberIdToUpdate=").concat(this.user.memberId));
             this.loading = true; // this.spinner.show();      
           }
         }
@@ -4658,7 +4827,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       },
       decls: 82,
       vars: 46,
-      consts: [[1, "container", "mt-4"], [1, "row"], [1, "col-sm-4", 2, "text-align", "center"], [1, "col-sm-2"], ["onclick", "history.back()", 1, "btn", "btn-info", "w-100"], [1, "fa", "fa-arrow-left"], [1, "col-sm-4"], [1, "card"], [1, "card-img-top", "img-thumbnail", 2, "cursor", "pointer", 3, "src", "alt", "click"], ["class", "btn btn-danger member-icon", "title", "Clique para Descurtir!", 3, "click", 4, "ngIf"], [1, "card-body"], [1, "fa", "fa-map-pin"], ["target", "_blank", "title", "Clique para ver no Mapa!", 3, "href"], [1, "fa", "fa-calendar"], [1, "card-footer"], ["class", "btn-group d-flex", 4, "ngIf"], [1, "col-sm-8"], [4, "ngIf"], ["class", "tab-panel", 4, "ngIf"], [1, "tab-panel"], [1, "member-tabset"], ["memberTabs", ""], [3, "heading"], [1, "fa", "fa-address-book"], ["class", "badge rounded-pill bg-primary interests", 4, "ngFor", "ngForOf"], ["heading", "Perguntas"], ["heading", "Fotos"], [3, "options", "images"], ["heading", "Mensagens"], [3, "recipientId", "recipientUser", 4, "ngIf"], ["class", "alert alert-info", 4, "ngIf"], ["title", "Clique para Descurtir!", 1, "btn", "btn-danger", "member-icon", 3, "click"], [1, "fa", "fa-heart"], [1, "btn-group", "d-flex"], ["class", "btn btn-primary w-100", 3, "click", 4, "ngIf"], [1, "btn", "btn-success", "w-100", 3, "click"], [1, "fa", "fa-comment"], [1, "btn", "btn-primary", "w-100", 3, "click"], [1, "fa", "fa-rotate-left"], [1, "btn", "btn-info", "w-100", 3, "click"], [1, "fa", "fa-pencil"], ["frameborder", "0", "onmousewheel", "", "width", "100%", "height", "533", 1, "airtable-embed", 3, "src", "load"], [1, "fa", "fa-eye"], [1, "fa", "fa-building"], [1, "fa", "fa-thumbs-up"], [1, "badge", "rounded-pill", "bg-primary", "interests"], [3, "recipientId", "recipientUser"], [1, "alert", "alert-info"]],
+      consts: [[1, "container", "mt-4"], [1, "row"], [1, "col-sm-4", 2, "text-align", "center"], [1, "col-sm-2"], ["onclick", "history.back()", 1, "btn", "btn-info", "w-100"], [1, "fa", "fa-arrow-left"], [1, "col-sm-4"], [1, "card"], [1, "card-img-top", "img-thumbnail", 2, "cursor", "pointer", 3, "src", "alt", "click"], ["class", "btn btn-danger member-icon", "title", "Clique para Descurtir!", 3, "click", 4, "ngIf"], [1, "card-body"], [1, "fa", "fa-map-pin"], ["target", "_blank", "title", "Clique para ver no Mapa!", 3, "href"], [1, "fa", "fa-calendar"], [1, "card-footer"], ["class", "btn-group d-flex", 4, "ngIf"], [1, "col-sm-8"], [4, "ngIf"], ["class", "tab-panel", 4, "ngIf"], [1, "tab-panel"], [1, "member-tabset"], ["memberTabs", ""], [3, "heading"], [1, "fa", "fa-address-book"], ["class", "badge rounded-pill bg-primary interests", 4, "ngFor", "ngForOf"], ["heading", "Perguntas"], ["heading", "Fotos"], [3, "options", "images"], ["heading", "Mensagens"], [3, "recipientId", "recipientUser", 4, "ngIf"], ["class", "alert alert-info", 4, "ngIf"], ["title", "Clique para Descurtir!", 1, "btn", "btn-danger", "member-icon", 3, "click"], [1, "fa", "fa-heart"], [1, "btn-group", "d-flex"], ["class", "btn btn-primary w-100", 3, "click", 4, "ngIf"], [1, "btn", "btn-success", "w-100", 3, "click"], [1, "fa", "fa-comment"], [1, "btn", "btn-primary", "w-100", 3, "click"], [1, "fa", "fa-rotate-left"], [1, "btn", "btn-info", "w-100", 3, "click"], ["frameborder", "0", "onmousewheel", "", "width", "100%", "height", "533", 1, "airtable-embed", 3, "src", "load"], [1, "fa", "fa-eye"], [1, "fa", "fa-building"], [1, "fa", "fa-thumbs-up"], [1, "badge", "rounded-pill", "bg-primary", "interests"], [3, "recipientId", "recipientUser"], [1, "alert", "alert-info"]],
       template: function MemberDetailComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0);
@@ -4755,7 +4924,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](30, MemberDetailComponent_div_30_Template, 6, 2, "div", 15);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](31, MemberDetailComponent_div_31_Template, 4, 0, "div", 15);
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](31, MemberDetailComponent_div_31_Template, 7, 0, "div", 15);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
@@ -5185,10 +5354,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this20 = this;
+          var _this21 = this;
 
           this.route.data.subscribe(function (data) {
-            _this20.user = data["user"];
+            _this21.user = data["user"];
           });
         }
       }, {
@@ -5462,17 +5631,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(MemberListComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this21 = this;
+          var _this22 = this;
 
           this.route.data.subscribe(function (data) {
             var _a, _b, _c;
 
-            _this21.users = data["users"].result;
-            _this21.pagination = data["users"].pagination;
-            _this21.userParams.minAge = (_a = localStorage.getItem('minAge'), _a !== null && _a !== void 0 ? _a : 18);
-            _this21.userParams.maxAge = (_b = localStorage.getItem('maxAge'), _b !== null && _b !== void 0 ? _b : 99);
-            _this21.userParams.uf = (_c = localStorage.getItem('uf'), _c !== null && _c !== void 0 ? _c : 'Acre');
-            _this21.userParams.orderBy = 'lastActive';
+            _this22.users = data["users"].result;
+            _this22.pagination = data["users"].pagination;
+            _this22.userParams.minAge = (_a = localStorage.getItem('minAge'), _a !== null && _a !== void 0 ? _a : 18);
+            _this22.userParams.maxAge = (_b = localStorage.getItem('maxAge'), _b !== null && _b !== void 0 ? _b : 99);
+            _this22.userParams.uf = (_c = localStorage.getItem('uf'), _c !== null && _c !== void 0 ? _c : 'Acre');
+            _this22.userParams.orderBy = 'lastActive';
           });
         }
       }, {
@@ -5484,11 +5653,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "loadUsers",
         value: function loadUsers() {
-          var _this22 = this;
+          var _this23 = this;
 
           this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, this.userParams).subscribe(function (response) {
-            _this22.users = response.result;
-            _this22.pagination = response.pagination;
+            _this23.users = response.result;
+            _this23.pagination = response.pagination;
           });
           if (this.userParams.minAge) localStorage.setItem('minAge', this.userParams.minAge);
           if (this.userParams.maxAge) localStorage.setItem('maxAge', this.userParams.maxAge);
@@ -5949,7 +6118,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "loadMessages",
         value: function loadMessages() {
-          var _this23 = this;
+          var _this24 = this;
 
           var currentUserId = +localStorage.getItem("userId");
           this.userService.getMessages(currentUserId, this.recipientUser.id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (messages) {// tslint:disable-next-line:prefer-for-of
@@ -5959,22 +6128,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             //   }
             // }
           })).subscribe(function (messages) {
-            _this23.messages = messages;
+            _this24.messages = messages;
           }, function (error) {
-            _this23.alertifyService.error(error);
+            _this24.alertifyService.error(error);
           });
         }
       }, {
         key: "sendMessage",
         value: function sendMessage() {
-          var _this24 = this;
+          var _this25 = this;
 
           if (this.sendMessageForm.valid) {
             this.userService.addMessage(this.authService.getCurrentUser().memberId, this.recipientUser.memberId, this.sendMessageForm.get("sendMessageTxt").value, this.messages.length).subscribe(function (message) {
               //debugger; it will always stop here
-              _this24.messages.push(message);
+              _this25.messages.push(message);
 
-              _this24.sendMessageForm.reset();
+              _this25.sendMessageForm.reset();
             });
           }
         }
@@ -6173,15 +6342,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var photo_r116 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
+        var photo_r118 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", !photo_r116.isApproved ? "awaitingApproval" : "");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", !photo_r118.isApproved ? "awaitingApproval" : "");
       }
     }
 
     function PhotoEditorComponent_div_1_Template(rf, ctx) {
       if (rf & 1) {
-        var _r120 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+        var _r122 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 9);
 
@@ -6198,13 +6367,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "button", 14);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PhotoEditorComponent_div_1_Template_button_click_5_listener() {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r120);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r122);
 
-          var photo_r116 = ctx.$implicit;
+          var photo_r118 = ctx.$implicit;
 
-          var ctx_r119 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+          var ctx_r121 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          return ctx_r119.setMainPhoto(photo_r116);
+          return ctx_r121.setMainPhoto(photo_r118);
         });
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6, "Main");
@@ -6223,21 +6392,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var photo_r116 = ctx.$implicit;
+        var photo_r118 = ctx.$implicit;
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵstyleProp"]("opacity", !photo_r116.isApproved ? "0.4" : "1");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵstyleProp"]("opacity", !photo_r118.isApproved ? "0.4" : "1");
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("src", photo_r116.url, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("src", photo_r118.url, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", !photo_r116.isApproved);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", !photo_r118.isApproved);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", photo_r116.isMain ? "btn-success active" : "btn-secondary")("disabled", photo_r116.isMain || !photo_r116.isApproved);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", photo_r118.isMain ? "btn-success active" : "btn-secondary")("disabled", photo_r118.isMain || !photo_r118.isApproved);
       }
     }
 
@@ -6253,11 +6422,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var item_r122 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
+        var item_r124 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](2, 1, (item_r122 == null ? null : item_r122.file == null ? null : item_r122.file.size) / 1024 / 1024, ".2"), " MB");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](2, 1, (item_r124 == null ? null : item_r124.file == null ? null : item_r124.file.size) / 1024 / 1024, ".2"), " MB");
       }
     }
 
@@ -6281,17 +6450,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var item_r122 = ctx.$implicit;
+        var item_r124 = ctx.$implicit;
 
-        var ctx_r121 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
+        var ctx_r123 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](item_r122 == null ? null : item_r122.file == null ? null : item_r122.file.name);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](item_r124 == null ? null : item_r124.file == null ? null : item_r124.file.name);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r121.uploader.options.isHTML5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r123.uploader.options.isHTML5);
       }
     }
 
@@ -6303,7 +6472,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function PhotoEditorComponent_div_14_Template(rf, ctx) {
       if (rf & 1) {
-        var _r126 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+        var _r128 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 18);
 
@@ -6366,11 +6535,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](19, "button", 24);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PhotoEditorComponent_div_14_Template_button_click_19_listener() {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r126);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r128);
 
-          var ctx_r125 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+          var ctx_r127 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          return ctx_r125.uploader.uploadAll();
+          return ctx_r127.uploader.uploadAll();
         });
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](20, "span", 25);
@@ -6382,11 +6551,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](22, "button", 26);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PhotoEditorComponent_div_14_Template_button_click_22_listener() {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r126);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r128);
 
-          var ctx_r127 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+          var ctx_r129 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          return ctx_r127.uploader.cancelAll();
+          return ctx_r129.uploader.cancelAll();
         });
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](23, "span", 27);
@@ -6398,11 +6567,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](25, "button", 28);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PhotoEditorComponent_div_14_Template_button_click_25_listener() {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r126);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r128);
 
-          var ctx_r128 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+          var ctx_r130 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          return ctx_r128.uploader.clearQueue();
+          return ctx_r130.uploader.clearQueue();
         });
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](26, "span", 29);
@@ -6417,31 +6586,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var ctx_r115 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+        var ctx_r117 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("Queue length: ", ctx_r115.uploader == null ? null : ctx_r115.uploader.queue == null ? null : ctx_r115.uploader.queue.length, "");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("Queue length: ", ctx_r117.uploader == null ? null : ctx_r117.uploader.queue == null ? null : ctx_r117.uploader.queue.length, "");
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](9);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r115.uploader.queue);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r117.uploader.queue);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngStyle", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](6, _c0, ctx_r115.uploader.progress + "%"));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngStyle", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](6, _c0, ctx_r117.uploader.progress + "%"));
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", !ctx_r115.uploader.getNotUploadedItems().length);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", !ctx_r117.uploader.getNotUploadedItems().length);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", !ctx_r115.uploader.isUploading);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", !ctx_r117.uploader.isUploading);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", !ctx_r115.uploader.queue.length);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", !ctx_r117.uploader.queue.length);
       }
     }
 
@@ -6471,7 +6640,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "initializeUploader",
         value: function initializeUploader() {
-          var _this25 = this;
+          var _this26 = this;
 
           var options = {
             headers: JSON.stringify({
@@ -6508,10 +6677,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 isApproved: res.isApproved
               };
 
-              _this25.photos.push(photo);
+              _this26.photos.push(photo);
 
               if (res.isMain) {
-                _this25.authService.photoUrl.next(res.url);
+                _this26.authService.photoUrl.next(res.url);
               }
             }
           };
@@ -6524,17 +6693,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setMainPhoto",
         value: function setMainPhoto(photo) {
-          var _this26 = this;
+          var _this27 = this;
 
           var id = JSON.parse(localStorage.getItem("currentUser")).id;
           this.userService.setMainPhoto(id, photo.id).subscribe(function (response) {
-            _this26.currentMain = _this26.photos.filter(function (p) {
+            _this27.currentMain = _this27.photos.filter(function (p) {
               return p.isMain === true;
             })[0];
-            _this26.currentMain.isMain = false;
+            _this27.currentMain.isMain = false;
             photo.isMain = true;
 
-            _this26.authService.photoUrl.next(photo.url);
+            _this27.authService.photoUrl.next(photo.url);
 
             var user = JSON.parse(localStorage.getItem("user"));
 
@@ -6549,17 +6718,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deletePhoto",
         value: function deletePhoto(photo) {
-          var _this27 = this;
+          var _this28 = this;
 
           var id = JSON.parse(localStorage.getItem("currentUser")).id;
           this.userService.deletePhoto(id, photo.id).subscribe(function (response) {
-            _this27.photos.splice(_this27.photos.findIndex(function (p) {
+            _this28.photos.splice(_this28.photos.findIndex(function (p) {
               return p.id === photo.id;
             }), 1);
 
-            _this27.alertifyService.success('Photo has been deleted');
+            _this28.alertifyService.success('Photo has been deleted');
           }, function (error) {
-            _this27.alertifyService.error('Failed to delete the Photo');
+            _this28.alertifyService.error('Failed to delete the Photo');
           });
         }
       }]);
@@ -6773,15 +6942,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var message_r107 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
+        var message_r109 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("src", message_r107 == null ? null : message_r107.senderPhotoUrl, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("src", message_r109 == null ? null : message_r109.senderPhotoUrl, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](message_r107.senderKnownAs);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](message_r109.senderKnownAs);
       }
     }
 
@@ -6801,15 +6970,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var message_r107 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
+        var message_r109 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("src", message_r107 == null ? null : message_r107.recipientPhotoUrl, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("src", message_r109 == null ? null : message_r109.recipientPhotoUrl, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](message_r107.recipientKnownAs);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](message_r109.recipientKnownAs);
       }
     }
 
@@ -6855,27 +7024,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var message_r107 = ctx.$implicit;
+        var message_r109 = ctx.$implicit;
 
-        var ctx_r106 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
+        var ctx_r108 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("routerLink", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](9, _c0, ctx_r106.messageContainer == "Outbox" ? message_r107.recipientId : message_r107.senderId))("queryParams", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction0"](11, _c1));
-
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](message_r107.content);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("routerLink", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](9, _c0, ctx_r108.messageContainer == "Outbox" ? message_r109.recipientId : message_r109.senderId))("queryParams", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction0"](11, _c1));
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r106.messageContainer != "Outbox");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](message_r109.content);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r108.messageContainer != "Outbox");
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r106.messageContainer == "Outbox");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r108.messageContainer == "Outbox");
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](8, 6, message_r107.messageSent, "short"));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](8, 6, message_r109.messageSent, "short"));
       }
     }
 
@@ -6925,11 +7094,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var ctx_r105 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+        var ctx_r107 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](12);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r105.messages);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r107.messages);
       }
     }
 
@@ -6949,23 +7118,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(MessagesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this28 = this;
+          var _this29 = this;
 
           this.route.data.subscribe(function (data) {
-            _this28.messages = data['messages'].result;
-            _this28.pagination = data['messages'].pagination;
+            _this29.messages = data['messages'].result;
+            _this29.pagination = data['messages'].pagination;
           });
         }
       }, {
         key: "loadMessages",
         value: function loadMessages() {
-          var _this29 = this;
+          var _this30 = this;
 
           this.userService.getLastChats(this.authService.getCurrentUser().memberId, this.pagination.currentPage, this.pagination.itemsPerPage, this.messageContainer).subscribe(function (data) {
-            _this29.messages = data.result;
-            _this29.pagination = data.pagination;
+            _this30.messages = data.result;
+            _this30.pagination = data.pagination;
           }, function (error) {
-            _this29.alertifyService.error(error);
+            _this30.alertifyService.error(error);
           });
         }
       }, {
@@ -6977,16 +7146,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deleteMessage",
         value: function deleteMessage(message, event) {
-          var _this30 = this;
+          var _this31 = this;
 
           event.stopPropagation();
           this.alertifyService.confirm('Deletar Conversa?', 'Tem certeza que deseja deletar toda esta conversa?', function () {
-            _this30.userService.deleteLastChat(message).subscribe(function (result1) {
-              var result = _this30.userService.deleteChats(message);
+            _this31.userService.deleteLastChat(message).subscribe(function (result1) {
+              var result = _this31.userService.deleteChats(message);
 
               var test = result;
             }, function (error) {
-              _this30.alertifyService.error('Falha ao deletar conversa');
+              _this31.alertifyService.error('Falha ao deletar conversa');
             });
           });
         }
@@ -7391,11 +7560,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(NavComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this31 = this;
+          var _this32 = this;
 
           this.authService.getCurrentUser();
           this.authService.photoUrl.subscribe(function (resp) {
-            _this31.photoUrl = resp;
+            _this32.photoUrl = resp;
           });
         }
       }, {
@@ -7406,15 +7575,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "login",
         value: function login() {
-          var _this32 = this;
+          var _this33 = this;
 
           this.authService.loginAirtable(this.model).subscribe(function (next) {
-            _this32.alertify.success('Login efetuado com Sucesso!');
+            _this33.alertify.success('Login efetuado com Sucesso!');
 
-            _this32.router.navigate(['/home']);
+            _this33.router.navigate(['/home']);
           }, function (error) {
-            _this32.alertify.confirm('Falha ao Entrar', 'Verifique seu email e senha e tente novamente! Ou clique em Esqueci a Senha para receber sua senha por Email!', function () {
-              _this32.forgot = true;
+            _this33.alertify.confirm('Falha ao Entrar', 'Verifique seu email e senha e tente novamente! Ou clique em Esqueci a Senha para receber sua senha por Email!', function () {
+              _this33.forgot = true;
             });
           });
         }
@@ -7428,21 +7597,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "forgotPassword",
         value: function forgotPassword() {
-          var _this33 = this;
+          var _this34 = this;
 
           this.alertify.confirm('Esqueci a Senha', "Deseja receber sua senha por Email?", function () {
-            _this33.authService.checkLoginByEmail(_this33.model.Username).subscribe(function (memberId) {
+            _this34.authService.checkLoginByEmail(_this34.model.Username).subscribe(function (memberId) {
               if (memberId) {
-                _this33.authService.forgotPasswordUpdate(memberId).subscribe(function (response) {
-                  _this33.alertify.success('Sua senha foi enviada com sucesso, verifique seu email!');
+                _this34.authService.forgotPasswordUpdate(memberId).subscribe(function (response) {
+                  _this34.alertify.success('Sua senha foi enviada com sucesso, verifique seu email!');
 
-                  _this33.router.navigate(['/home']);
+                  _this34.router.navigate(['/home']);
                 }, function (error) {
-                  _this33.alertify.error('Erro ao enviar sua senha, tente novamente mais tarde!', error);
+                  _this34.alertify.error('Erro ao enviar sua senha, tente novamente mais tarde!', error);
                 });
               }
             }), function (error) {
-              _this33.alertify.error('Erro ao enviar sua senha, tente novamente mais tarde!', error);
+              _this34.alertify.error('Erro ao enviar sua senha, tente novamente mais tarde!', error);
             };
           });
         }
@@ -8069,129 +8238,138 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _contact_us_contact_us_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    var _member_reload_member_reload_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! ./member-reload/member-reload.component */
+    "./src/app/member-reload/member-reload.component.ts");
+    /* harmony import */
+
+
+    var _contact_us_contact_us_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! ./contact-us/contact-us.component */
     "./src/app/contact-us/contact-us.component.ts");
     /* harmony import */
 
 
-    var _home_home_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    var _home_home_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! ./home/home.component */
     "./src/app/home/home.component.ts");
     /* harmony import */
 
 
-    var _members_member_list_member_list_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    var _members_member_list_member_list_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! ./members/member-list/member-list.component */
     "./src/app/members/member-list/member-list.component.ts");
     /* harmony import */
 
 
-    var _messages_messages_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    var _messages_messages_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! ./messages/messages.component */
     "./src/app/messages/messages.component.ts");
     /* harmony import */
 
 
-    var _lists_lists_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    var _lists_lists_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! ./lists/lists.component */
     "./src/app/lists/lists.component.ts");
     /* harmony import */
 
 
-    var _guards_auth_guard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    var _guards_auth_guard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
     /*! ./_guards/auth.guard */
     "./src/app/_guards/auth.guard.ts");
     /* harmony import */
 
 
-    var _members_member_detail_member_detail_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    var _members_member_detail_member_detail_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
     /*! ./members/member-detail/member-detail.component */
     "./src/app/members/member-detail/member-detail.component.ts");
     /* harmony import */
 
 
-    var _resolvers_member_list_resolver__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    var _resolvers_member_list_resolver__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
     /*! ./_resolvers/member-list.resolver */
     "./src/app/_resolvers/member-list.resolver.ts");
     /* harmony import */
 
 
-    var _resolvers_member_detail_resolver__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    var _resolvers_member_detail_resolver__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
     /*! ./_resolvers/member-detail.resolver */
     "./src/app/_resolvers/member-detail.resolver.ts");
     /* harmony import */
 
 
-    var _members_member_edit_member_edit_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    var _members_member_edit_member_edit_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
     /*! ./members/member-edit/member-edit.component */
     "./src/app/members/member-edit/member-edit.component.ts");
     /* harmony import */
 
 
-    var _resolvers_member_edit_resolver__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    var _resolvers_member_edit_resolver__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
     /*! ./_resolvers/member-edit.resolver */
     "./src/app/_resolvers/member-edit.resolver.ts");
     /* harmony import */
 
 
-    var _resolvers_lists_resolver__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+    var _resolvers_lists_resolver__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
     /*! ./_resolvers/lists.resolver */
     "./src/app/_resolvers/lists.resolver.ts");
     /* harmony import */
 
 
-    var _resolvers_message_list_resolver__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+    var _resolvers_message_list_resolver__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
     /*! ./_resolvers/message-list.resolver */
     "./src/app/_resolvers/message-list.resolver.ts"); // import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 
     var appRoutes = [{
       path: '',
-      component: _home_home_component__WEBPACK_IMPORTED_MODULE_1__["HomeComponent"]
+      component: _home_home_component__WEBPACK_IMPORTED_MODULE_2__["HomeComponent"]
     }, {
       path: 'contactus',
-      component: _contact_us_contact_us_component__WEBPACK_IMPORTED_MODULE_0__["ContactUsComponent"]
+      component: _contact_us_contact_us_component__WEBPACK_IMPORTED_MODULE_1__["ContactUsComponent"]
+    }, {
+      path: 'reload',
+      component: _member_reload_member_reload_component__WEBPACK_IMPORTED_MODULE_0__["MemberReloadComponent"]
     }, {
       path: '',
       runGuardsAndResolvers: 'always',
-      canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_5__["AuthGuard"]],
+      canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_6__["AuthGuard"]],
       children: [{
         path: 'members',
-        component: _members_member_list_member_list_component__WEBPACK_IMPORTED_MODULE_2__["MemberListComponent"],
+        component: _members_member_list_member_list_component__WEBPACK_IMPORTED_MODULE_3__["MemberListComponent"],
         resolve: {
-          users: _resolvers_member_list_resolver__WEBPACK_IMPORTED_MODULE_7__["MemberListResolver"]
+          users: _resolvers_member_list_resolver__WEBPACK_IMPORTED_MODULE_8__["MemberListResolver"]
         }
       }, {
         path: 'members/:id',
-        component: _members_member_detail_member_detail_component__WEBPACK_IMPORTED_MODULE_6__["MemberDetailComponent"],
+        component: _members_member_detail_member_detail_component__WEBPACK_IMPORTED_MODULE_7__["MemberDetailComponent"],
         resolve: {
-          user: _resolvers_member_detail_resolver__WEBPACK_IMPORTED_MODULE_8__["MemberDetailResolver"]
+          user: _resolvers_member_detail_resolver__WEBPACK_IMPORTED_MODULE_9__["MemberDetailResolver"]
         }
       }, {
         path: 'members/:user',
-        component: _members_member_detail_member_detail_component__WEBPACK_IMPORTED_MODULE_6__["MemberDetailComponent"],
+        component: _members_member_detail_member_detail_component__WEBPACK_IMPORTED_MODULE_7__["MemberDetailComponent"],
         resolve: {
-          user: _resolvers_member_detail_resolver__WEBPACK_IMPORTED_MODULE_8__["MemberDetailResolver"]
+          user: _resolvers_member_detail_resolver__WEBPACK_IMPORTED_MODULE_9__["MemberDetailResolver"]
         }
       }, // { path: 'member/edit', component: MemberEditComponent, canDeactivate: [PreventUnsavedChanges], resolve: { user: MemberEditResolver}},
       {
         path: 'member/edit',
-        component: _members_member_edit_member_edit_component__WEBPACK_IMPORTED_MODULE_9__["MemberEditComponent"],
+        component: _members_member_edit_member_edit_component__WEBPACK_IMPORTED_MODULE_10__["MemberEditComponent"],
         resolve: {
-          user: _resolvers_member_edit_resolver__WEBPACK_IMPORTED_MODULE_10__["MemberEditResolver"]
+          user: _resolvers_member_edit_resolver__WEBPACK_IMPORTED_MODULE_11__["MemberEditResolver"]
         }
       }, {
         path: 'messages',
-        component: _messages_messages_component__WEBPACK_IMPORTED_MODULE_3__["MessagesComponent"],
+        component: _messages_messages_component__WEBPACK_IMPORTED_MODULE_4__["MessagesComponent"],
         resolve: {
-          messages: _resolvers_message_list_resolver__WEBPACK_IMPORTED_MODULE_12__["MessageListResolver"]
+          messages: _resolvers_message_list_resolver__WEBPACK_IMPORTED_MODULE_13__["MessageListResolver"]
         }
       }, {
         path: 'lists',
-        component: _lists_lists_component__WEBPACK_IMPORTED_MODULE_4__["ListsComponent"],
+        component: _lists_lists_component__WEBPACK_IMPORTED_MODULE_5__["ListsComponent"],
         resolve: {
-          users: _resolvers_lists_resolver__WEBPACK_IMPORTED_MODULE_11__["ListsResolver"]
+          users: _resolvers_lists_resolver__WEBPACK_IMPORTED_MODULE_12__["ListsResolver"]
         }
       }]
     }, {
@@ -8282,14 +8460,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getValues",
         value: function getValues() {
-          var _this34 = this;
+          var _this35 = this;
 
           this.http.get('http://localhost:5000/api/values').subscribe(function (response) {
-            _this34.values = response;
+            _this35.values = response;
 
-            _this34.alertifyService.success('values received');
+            _this35.alertifyService.success('values received');
           }, function (error) {
-            _this34.alertifyService.error(error);
+            _this35.alertifyService.error(error);
           });
         }
       }]);
@@ -8347,7 +8525,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     !*** ./src/environments/environment.ts ***!
     \*****************************************/
 
-  /*! exports provided: environment, API_PATH, API_KEY, CREATE_FORM, EDIT_FORM */
+  /*! exports provided: environment, API_PATH, API_KEY, CREATE_FORM, EDIT_FORM, MAIN_IMAGE, OTHER_IMAGES */
 
   /***/
   function srcEnvironmentsEnvironmentTs(module, __webpack_exports__, __webpack_require__) {
@@ -8384,6 +8562,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     __webpack_require__.d(__webpack_exports__, "EDIT_FORM", function () {
       return EDIT_FORM;
     });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "MAIN_IMAGE", function () {
+      return MAIN_IMAGE;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "OTHER_IMAGES", function () {
+      return OTHER_IMAGES;
+    });
 
     var environment = {
       production: false,
@@ -8397,6 +8587,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var API_KEY = "keyRNWJ9cetyXUJex";
     var CREATE_FORM = "shruHY6jya6Y0gDjg";
     var EDIT_FORM = "shrpTrfrJgjva89As";
+    var MAIN_IMAGE = "shriwEGX2lOCbIDgP";
+    var OTHER_IMAGES = "shrJRw7HX4ZvZzjlD";
     /***/
   },
 
