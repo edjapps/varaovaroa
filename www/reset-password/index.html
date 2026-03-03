@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Redefinir senha – Varão Varoa</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#fdfbf7;color:#332d2b;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:16px}.card{width:100%;max-width:420px;background:#fff;border-radius:24px;box-shadow:0 20px 40px rgba(0,0,0,.08);padding:24px 24px 28px}h1{font-size:22px;margin:0 0 8px}p{font-size:14px;margin:0 0 16px;color:#7a6f6a}label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:#5a4d4a}input[type=password]{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #eae2de;font-size:14px;outline:0}input[type=password]:focus{border-color:#d67b6b;box-shadow:0 0 0 1px rgba(214,123,107,.08)}.field{margin-bottom:14px}button{width:100%;padding:12px;border-radius:999px;border:0;font-size:14px;font-weight:600;cursor:pointer}button.primary{background:linear-gradient(90deg,#d67b6b,#e8958a);color:#fff}button.primary:disabled{opacity:.6;cursor:not-allowed}.message{margin-top:12px;font-size:13px;padding:10px 12px;border-radius:12px}.message.error{background:#fef2f2;color:#b91c1c;border:1px solid #fecaca}.message.success{background:#ecfdf3;color:#166534;border:1px solid #bbf7d0}.footer{margin-top:16px;font-size:11px;text-align:center;color:#a0938e}.hidden{display:none}
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Redefinir senha</h1>
+    <p>Defina uma nova senha para continuar usando o Varão Varoa com segurança.</p>
+    <form id="reset-form">
+      <div class="field">
+        <label for="password">Nova senha</label>
+        <input id="password" type="password" autocomplete="new-password" required />
+      </div>
+      <div class="field">
+        <label for="confirm-password">Confirmar nova senha</label>
+        <input id="confirm-password" type="password" autocomplete="new-password" required />
+      </div>
+      <button type="submit" class="primary" id="submit-btn">Salvar nova senha</button>
+    </form>
+    <div id="message" class="message hidden"></div>
+    <div class="footer">Se você não solicitou essa alteração, pode ignorar este link.</div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = window.SUPABASE_URL || 'https://bsgvumeymfalspmaaikp.supabase.co';
+    const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzZ3Z1bWV5bWZhbHNwbWFhaWtwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3MzY1MjAsImV4cCI6MjA4NzMxMjUyMH0.bEaUhxoGLmnuC7X4Mgvbda7l5tO4IBVvVEuFe0WRrLM';
+    const form = document.getElementById('reset-form');
+    const passwordInput = document.getElementById('password');
+    const confirmInput = document.getElementById('confirm-password');
+    const submitBtn = document.getElementById('submit-btn');
+    const messageBox = document.getElementById('message');
+    function showMessage(t, type){messageBox.textContent=t;messageBox.classList.remove('hidden','error','success');messageBox.classList.add(type==='error'?'error':'success')}
+    function disableForm(){passwordInput.disabled=true;confirmInput.disabled=true;submitBtn.disabled=true}
+    if(!SUPABASE_URL||!SUPABASE_ANON_KEY){showMessage('Configuração ausente. Contate o suporte.', 'error');disableForm()}
+    const { createClient } = supabase;
+    const client = (SUPABASE_URL&&SUPABASE_ANON_KEY)?createClient(SUPABASE_URL, SUPABASE_ANON_KEY):null;
+    async function ensureRecoverySession(){
+      if(!client) return;
+      const { data, error } = await client.auth.getSession();
+      if(error || !data.session){showMessage('Link inválido ou expirado. Solicite um novo e‑mail.', 'error');disableForm()}
+    }
+    ensureRecoverySession();
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      if(!client) return;
+      messageBox.classList.add('hidden');
+      const password=passwordInput.value.trim();
+      const confirm=confirmInput.value.trim();
+      if(password.length<6){showMessage('A nova senha deve ter pelo menos 6 caracteres.', 'error');return}
+      if(password!==confirm){showMessage('As senhas não conferem. Verifique e tente novamente.', 'error');return}
+      submitBtn.disabled=true;submitBtn.textContent='Salvando...';
+      try{
+        const { error } = await client.auth.updateUser({ password });
+        if(error){showMessage('Não foi possível atualizar sua senha. Tente novamente ou solicite um novo link.', 'error');submitBtn.disabled=false;submitBtn.textContent='Salvar nova senha';return}
+        showMessage('Senha redefinida com sucesso! Você já pode voltar ao app e entrar com a nova senha.', 'success');
+        disableForm();
+      }catch(err){
+        showMessage('Ocorreu um erro inesperado. Tente novamente mais tarde.', 'error');
+        submitBtn.disabled=false;submitBtn.textContent='Salvar nova senha';
+      }
+    });
+  </script>
+</body>
+</html>
