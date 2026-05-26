@@ -215,6 +215,7 @@
     <script>
       const params = new URLSearchParams(window.location.search);
       const prefilledEmail = (params.get('email') || '').trim();
+      const source = (params.get('source') || '').trim() || null;
       const emailInput = document.getElementById('email');
       const form = document.getElementById('deletion-form');
       const feedback = document.getElementById('feedback');
@@ -250,7 +251,7 @@
               'Content-Type': 'application/json',
               apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzZ3Z1bWV5bWZhbHNwbWFhaWtwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3MzY1MjAsImV4cCI6MjA4NzMxMjUyMH0.bEaUhxoGLmnuC7X4Mgvbda7l5tO4IBVvVEuFe0WRrLM'
             },
-            body: JSON.stringify({ email })
+            body: JSON.stringify({ email, source })
           });
 
           const result = await response.json().catch(() => ({}));
@@ -272,5 +273,6 @@
         }
       });
     </script>
+    <p style="text-align:center;font-size:11px;color:#b0a09a;margin-top:18px;">v1.0.1</p>
   </body>
 </html>
