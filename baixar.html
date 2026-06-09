@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Varão Varoa: app cristão para quem busca um relacionamento sério com propósito."
+  />
+  <title>Varão Varoa | Baixar App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #fcf7f2;
+      --bg-soft: #f3e6db;
+      --ink: #2b2423;
+      --muted: #786c68;
+      --line: rgba(115, 88, 79, 0.13);
+      --card: rgba(255, 255, 255, 0.82);
+      --card-strong: rgba(255, 255, 255, 0.92);
+      --primary: #d67b6b;
+      --primary-deep: #b96153;
+      --accent: #1c6fb3;
+      --accent-deep: #155788;
+      --gold: #f0c27c;
+      --shadow: 0 28px 80px rgba(87, 56, 46, 0.13);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(214, 123, 107, 0.18), transparent 30%),
+        radial-gradient(circle at 100% 20%, rgba(28, 111, 179, 0.12), transparent 26%),
+        radial-gradient(circle at 50% 100%, rgba(240, 194, 124, 0.2), transparent 30%),
+        linear-gradient(160deg, #fffdfb 0%, var(--bg) 46%, var(--bg-soft) 100%);
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1120px;
+      padding: 22px;
+      border-radius: 36px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.56));
+      border: 1px solid rgba(255,255,255,0.65);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .panel {
+      border-radius: 30px;
+      overflow: hidden;
+    }
+
+    .panel-main {
+      padding: 34px;
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.7);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .brand-mark {
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      object-fit: cover;
+      box-shadow: 0 12px 26px rgba(81, 48, 39, 0.18);
+      background: #fff;
+    }
+
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .brand-kicker {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary-deep);
+    }
+
+    .brand-name {
+      font-family: "Playfair Display", serif;
+      font-size: 36px;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    h1 {
+      margin: 0 0 16px;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.5rem, 4.7vw, 4.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+    }
+
+    .lead {
+      margin: 0;
+      max-width: 590px;
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
+    .summary {
+      margin-top: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(214, 123, 107, 0.1);
+      color: var(--primary-deep);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .summary-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--primary), #f0a18a);
+      box-shadow: 0 0 0 6px rgba(214, 123, 107, 0.12);
+    }
+
+    .features {
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 18px;
+      border-radius: 22px;
+      background: var(--card-strong);
+      border: 1px solid var(--line);
+    }
+
+    .feature-icon {
+      flex: 0 0 auto;
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      background: linear-gradient(135deg, rgba(214, 123, 107, 0.15), rgba(240, 194, 124, 0.22));
+    }
+
+    .feature strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+
+    .feature span {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .actions {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .button {
+      flex: 1 1 230px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 68px;
+      padding: 14px 22px;
+      border-radius: 22px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 800;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.11);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      filter: saturate(1.03);
+    }
+
+    .button img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.16);
+      padding: 2px;
+    }
+
+    .button small {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    .button strong {
+      display: block;
+      font-size: 16px;
+      line-height: 1.2;
+    }
+
+    .button-android {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary) 0%, #e48f74 100%);
+    }
+
+    .button-ios {
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent) 0%, #53a5e1 100%);
+    }
+
+    .footnote {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .ios-guide-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(32, 29, 29, 0.72);
+      backdrop-filter: blur(10px);
+    }
+
+    .ios-guide-overlay.is-open {
+      display: flex;
+    }
+
+    .ios-guide-card {
+      width: min(100%, 460px);
+      border-radius: 30px;
+      padding: 28px;
+      background: rgba(255, 253, 251, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 28px 70px rgba(43, 36, 35, 0.24);
+    }
+
+    .ios-guide-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(28, 111, 179, 0.1);
+      color: var(--accent-deep);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .ios-guide-title {
+      margin: 16px 0 10px;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2rem, 6vw, 2.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+
+    .ios-guide-copy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .ios-guide-tutorial {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(28, 111, 179, 0.08), rgba(255, 255, 255, 0.92));
+      border: 1px solid rgba(28, 111, 179, 0.14);
+    }
+
+    .ios-guide-tutorial[hidden] {
+      display: none;
+    }
+
+    .ios-guide-browser {
+      border-radius: 22px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid rgba(28, 111, 179, 0.12);
+      box-shadow: 0 18px 28px rgba(28, 111, 179, 0.08);
+    }
+
+    .ios-guide-browser-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      background: #f5f7fb;
+      border-bottom: 1px solid rgba(28, 111, 179, 0.1);
+    }
+
+    .ios-guide-address {
+      min-width: 0;
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #fff;
+      color: #6f7a86;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid rgba(28, 111, 179, 0.12);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ios-guide-menu {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(28, 111, 179, 0.12);
+    }
+
+    .ios-guide-menu-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .ios-guide-browser-body {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .ios-guide-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid rgba(115, 88, 79, 0.1);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .ios-guide-option-highlight {
+      border-color: rgba(28, 111, 179, 0.3);
+      background: linear-gradient(135deg, rgba(28, 111, 179, 0.12), rgba(83, 165, 225, 0.16));
+      box-shadow: 0 16px 30px rgba(28, 111, 179, 0.12);
+    }
+
+    .ios-guide-option-badge {
+      flex: 0 0 auto;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--accent-deep);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .ios-guide-tip {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .ios-guide-steps {
+      margin: 20px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .ios-guide-step {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px 16px;
+      border-radius: 20px;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+
+    .ios-guide-step-number {
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--accent), #53a5e1);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .ios-guide-step strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .ios-guide-step span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .ios-guide-actions {
+      margin-top: 22px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .ios-guide-button {
+      width: 100%;
+      border: 0;
+      cursor: pointer;
+      min-height: 56px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      font-size: 15px;
+      font-weight: 800;
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .ios-guide-button:hover {
+      transform: translateY(-1px);
+      filter: saturate(1.03);
+    }
+
+    .ios-guide-button-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent) 0%, #53a5e1 100%);
+      box-shadow: 0 16px 28px rgba(28, 111, 179, 0.24);
+    }
+
+    .ios-guide-button-secondary {
+      color: var(--ink);
+      background: rgba(120, 108, 104, 0.1);
+    }
+
+    .panel-visual {
+      position: relative;
+      padding: 24px;
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.26), transparent 38%),
+        linear-gradient(180deg, #d36d63 0%, #eecc96 100%);
+      min-height: 100%;
+    }
+
+    .glow,
+    .glow-2 {
+      position: absolute;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.18);
+      filter: blur(4px);
+    }
+
+    .glow {
+      top: -40px;
+      right: -50px;
+      width: 220px;
+      height: 220px;
+    }
+
+    .glow-2 {
+      bottom: -50px;
+      left: -45px;
+      width: 180px;
+      height: 180px;
+    }
+
+    .phone {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 320px);
+      margin: 18px auto 0;
+      padding: 14px;
+      border-radius: 38px;
+      background: #201d1d;
+      box-shadow: 0 30px 70px rgba(74, 35, 25, 0.3);
+    }
+
+    .screen {
+      overflow: hidden;
+      border-radius: 28px;
+      background: linear-gradient(180deg, #fff9f5 0%, #f7ece5 100%);
+    }
+
+    .screen-header {
+      padding: 18px 18px 14px;
+    }
+
+    .screen-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(214, 123, 107, 0.12);
+      color: var(--primary-deep);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .screen-title {
+      margin: 12px 0 6px;
+      font-family: "Playfair Display", serif;
+      font-size: 30px;
+      line-height: 0.95;
+    }
+
+    .screen-copy {
+      margin: 0;
+      color: #746561;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .profile-card {
+      margin: 0 14px 14px;
+      padding: 14px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 18px 28px rgba(70, 43, 35, 0.1);
+    }
+
+    .profile-photo {
+      width: 100%;
+      height: 224px;
+      border-radius: 20px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0) 38%, rgba(0,0,0,0.2) 100%),
+        url("/icon4.png") center/cover no-repeat;
+    }
+
+    .profile-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .profile-name {
+      font-size: 23px;
+      font-weight: 800;
+    }
+
+    .vip-badge {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(240, 194, 124, 0.26);
+      color: #8a5c18;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .profile-sub {
+      margin: 5px 0 12px;
+      color: #7d6f69;
+      font-size: 14px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: #f8efe8;
+      color: #7f655b;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .mini-stats {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .mini-stat {
+      padding: 14px 12px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.22);
+      color: #fff;
+      text-align: center;
+    }
+
+    .mini-stat strong {
+      display: block;
+      font-size: 20px;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .mini-stat span {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.86;
+      font-weight: 700;
+    }
+
+    @media (max-width: 940px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .page {
+        padding: 14px;
+      }
+
+      .shell {
+        padding: 14px;
+        border-radius: 28px;
+      }
+
+      .panel-main,
+      .panel-visual {
+        padding: 22px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .button {
+        flex-basis: auto;
+      }
+
+      .brand-name {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="shell">
+      <div class="grid">
+        <div class="panel panel-main">
+          <div class="brand">
+            <img class="brand-mark" src="/icon4.png" alt="Logo do Varão Varoa" />
+            <div class="brand-copy">
+              <span class="brand-kicker">Encontro cristão</span>
+              <span class="brand-name">Varão Varoa App</span>
+            </div>
+          </div>
+          
+          <p class="lead">
+            Um app cristão pensado para quem deseja conhecer alguém com fé, propósito
+            e intenção real de construir um relacionamento sério.
+          </p>
+
+          <div class="summary">
+            <span class="summary-dot"></span>
+            Disponível no Android e acessível pelo iPhone via site
+          </div>
+
+          <ul class="features">
+            <li class="feature">
+              <div class="feature-icon">♡</div>
+              <div>
+                <strong>Conexões com propósito</strong>
+                <span>Conheça pessoas que compartilham princípios, valores e visão de futuro.</span>
+              </div>
+            </li>
+            <li class="feature">
+              <div class="feature-icon">✦</div>
+              <div>
+                <strong>Experiência elegante</strong>
+                <span>Perfis, curtidas, matches e conversas em uma jornada simples e acolhedora.</span>
+              </div>
+            </li>
+            <li class="feature">
+              <div class="feature-icon">🛡</div>
+              <div>
+                <strong>Mais segurança</strong>
+                <span>Recursos de moderação e proteção para tornar a experiência mais confiável.</span>
+              </div>
+            </li>
+            <li class="feature">
+              <div class="feature-icon">👑</div>
+              <div>
+                <strong>Recursos VIP</strong>
+                <span>Mais visibilidade, mais curtidas e mais possibilidades de conexão.</span>
+              </div>
+            </li>
+          </ul>
+
+          <div class="actions">
+            <a
+              class="button button-android"
+              href="https://play.google.com/store/apps/details?id=br.com.edjapps.varaovaroa"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src="/android.png" alt="Android" />
+              <span>
+                <small>Download oficial</small>
+                <strong>Baixar no Android</strong>
+              </span>
+            </a>
+
+            <a
+              id="ios-access-button"
+              class="button button-ios"
+              href="/index.html"
+            >
+              <img src="/apple.png" alt="Apple" />
+              <span>
+                <small>Acesso para iPhone</small>
+                <strong>Acessar pelo iOS</strong>
+              </span>
+            </a>
+          </div>
+
+          <p class="footnote">
+            No Android, o botão abre a loja oficial do Google Play. No iPhone, o botão direciona para o site.
+          </p>
+        </div>        
+      </div>
+    </section>
+  </main>
+  <div id="ios-guide-overlay" class="ios-guide-overlay" aria-hidden="true">
+    <div class="ios-guide-card" role="dialog" aria-modal="true" aria-labelledby="ios-guide-title">
+      <div class="ios-guide-kicker">Melhor no Safari</div>
+      <h2 id="ios-guide-title" class="ios-guide-title">Abra no Safari para uma experiência melhor</h2>
+      <p class="ios-guide-copy">
+        Se você está no Instagram pelo iPhone, o navegador interno pode limitar login, pagamento e navegação.
+        O ideal é abrir este link no Safari antes de continuar.
+      </p>
+      <div id="ios-guide-tutorial" class="ios-guide-tutorial" hidden>
+        <div class="ios-guide-browser">
+          <div class="ios-guide-browser-top">
+            <div class="ios-guide-address">instagram.com • navegador interno</div>
+            <div class="ios-guide-menu" aria-hidden="true">
+              <span class="ios-guide-menu-dot"></span>
+              <span class="ios-guide-menu-dot"></span>
+              <span class="ios-guide-menu-dot"></span>
+            </div>
+          </div>
+          <div class="ios-guide-browser-body">
+            <div class="ios-guide-option">
+              <span>Copiar link</span>
+            </div>
+            <div class="ios-guide-option ios-guide-option-highlight">
+              <span>Abrir no Safari</span>
+              <span class="ios-guide-option-badge">Toque aqui</span>
+            </div>
+            <div class="ios-guide-option">
+              <span>Compartilhar</span>
+            </div>
+          </div>
+        </div>
+        <p class="ios-guide-tip">
+          Dica: depois que abrir no Safari, você pode continuar login, cadastro e pagamentos com mais estabilidade.
+        </p>
+      </div>
+      <ol class="ios-guide-steps">
+        <li class="ios-guide-step">
+          <span class="ios-guide-step-number">1</span>
+          <div>
+            <strong>Toque nos 3 pontinhos</strong>
+            <span>No canto superior ou inferior do navegador interno do Instagram.</span>
+          </div>
+        </li>
+        <li class="ios-guide-step">
+          <span class="ios-guide-step-number">2</span>
+          <div>
+            <strong>Escolha “Abrir no Safari”</strong>
+            <span>Assim o site abre no navegador do iPhone com melhor compatibilidade.</span>
+          </div>
+        </li>
+        <li class="ios-guide-step">
+          <span class="ios-guide-step-number">3</span>
+          <div>
+            <strong>Volte aqui se precisar</strong>
+            <span>Se preferir, você ainda pode continuar no Instagram por sua conta.</span>
+          </div>
+        </li>
+      </ol>
+      <div class="ios-guide-actions">
+        <button id="ios-guide-tutorial-button" type="button" class="ios-guide-button ios-guide-button-primary">
+          Ver tutorial
+        </button>
+        <button id="ios-guide-continue-button" type="button" class="ios-guide-button ios-guide-button-secondary">
+          Continuar no Instagram
+        </button>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var iosUrl = "https://www.varaovaroa.com.br/";
+      var iosButton = document.getElementById("ios-access-button");
+      var overlay = document.getElementById("ios-guide-overlay");
+      var tutorial = document.getElementById("ios-guide-tutorial");
+      var tutorialButton = document.getElementById("ios-guide-tutorial-button");
+      var continueButton = document.getElementById("ios-guide-continue-button");
+
+      if (!iosButton || !overlay || !tutorial || !tutorialButton || !continueButton) return;
+
+      var ua = navigator.userAgent || "";
+      var isIPhone = /iPhone/i.test(ua);
+      var isInstagram = /Instagram/i.test(ua);
+      var shouldShowInstagramIOSGuide = isIPhone && isInstagram;
+
+      var openIosUrl = function () {
+        window.open(iosUrl, "_blank", "noopener,noreferrer");
+      };
+
+      var closeGuide = function () {
+        overlay.classList.remove("is-open");
+        overlay.setAttribute("aria-hidden", "true");
+        tutorial.hidden = true;
+        tutorialButton.textContent = "Ver tutorial";
+      };
+
+      iosButton.addEventListener("click", function (event) {
+        if (!shouldShowInstagramIOSGuide) return;
+        event.preventDefault();
+        tutorial.hidden = true;
+        tutorialButton.textContent = "Ver tutorial";
+        overlay.classList.add("is-open");
+        overlay.setAttribute("aria-hidden", "false");
+      });
+
+      tutorialButton.addEventListener("click", function () {
+        if (tutorial.hidden) {
+          tutorial.hidden = false;
+          tutorialButton.textContent = "Abrir site agora";
+          return;
+        }
+        openIosUrl();
+      });
+
+      continueButton.addEventListener("click", function () {
+        closeGuide();
+        openIosUrl();
+      });
+
+      overlay.addEventListener("click", function (event) {
+        if (event.target === overlay) {
+          closeGuide();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
