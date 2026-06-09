@@ -275,6 +275,245 @@
       line-height: 1.7;
     }
 
+    .ios-guide-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(32, 29, 29, 0.72);
+      backdrop-filter: blur(10px);
+    }
+
+    .ios-guide-overlay.is-open {
+      display: flex;
+    }
+
+    .ios-guide-card {
+      width: min(100%, 460px);
+      border-radius: 30px;
+      padding: 28px;
+      background: rgba(255, 253, 251, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 28px 70px rgba(43, 36, 35, 0.24);
+    }
+
+    .ios-guide-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(28, 111, 179, 0.1);
+      color: var(--accent-deep);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .ios-guide-title {
+      margin: 16px 0 10px;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2rem, 6vw, 2.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+
+    .ios-guide-copy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .ios-guide-tutorial {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(28, 111, 179, 0.08), rgba(255, 255, 255, 0.92));
+      border: 1px solid rgba(28, 111, 179, 0.14);
+    }
+
+    .ios-guide-tutorial[hidden] {
+      display: none;
+    }
+
+    .ios-guide-browser {
+      border-radius: 22px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid rgba(28, 111, 179, 0.12);
+      box-shadow: 0 18px 28px rgba(28, 111, 179, 0.08);
+    }
+
+    .ios-guide-browser-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      background: #f5f7fb;
+      border-bottom: 1px solid rgba(28, 111, 179, 0.1);
+    }
+
+    .ios-guide-address {
+      min-width: 0;
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #fff;
+      color: #6f7a86;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid rgba(28, 111, 179, 0.12);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ios-guide-menu {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(28, 111, 179, 0.12);
+    }
+
+    .ios-guide-menu-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .ios-guide-browser-body {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .ios-guide-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid rgba(115, 88, 79, 0.1);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .ios-guide-option-highlight {
+      border-color: rgba(28, 111, 179, 0.3);
+      background: linear-gradient(135deg, rgba(28, 111, 179, 0.12), rgba(83, 165, 225, 0.16));
+      box-shadow: 0 16px 30px rgba(28, 111, 179, 0.12);
+    }
+
+    .ios-guide-option-badge {
+      flex: 0 0 auto;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--accent-deep);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .ios-guide-tip {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .ios-guide-steps {
+      margin: 20px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .ios-guide-step {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px 16px;
+      border-radius: 20px;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+
+    .ios-guide-step-number {
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--accent), #53a5e1);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .ios-guide-step strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .ios-guide-step span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .ios-guide-actions {
+      margin-top: 22px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .ios-guide-button {
+      width: 100%;
+      border: 0;
+      cursor: pointer;
+      min-height: 56px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      font-size: 15px;
+      font-weight: 800;
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .ios-guide-button:hover {
+      transform: translateY(-1px);
+      filter: saturate(1.03);
+    }
+
+    .ios-guide-button-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent) 0%, #53a5e1 100%);
+      box-shadow: 0 16px 28px rgba(28, 111, 179, 0.24);
+    }
+
+    .ios-guide-button-secondary {
+      color: var(--ink);
+      background: rgba(120, 108, 104, 0.1);
+    }
+
     .panel-visual {
       position: relative;
       padding: 24px;
@@ -484,7 +723,7 @@
       }
 
       .brand-name {
-        font-size: 30px;
+        font-size: 20px;
       }
     }
   </style>
@@ -558,10 +797,9 @@
             </a>
 
             <a
+              id="ios-access-button"
               class="button button-ios"
-              href="https://www.varaovaroa.com.br/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/index.html"
             >
               <img src="/apple.png" alt="Apple" />
               <span>
@@ -578,5 +816,130 @@
       </div>
     </section>
   </main>
+  <div id="ios-guide-overlay" class="ios-guide-overlay" aria-hidden="true">
+    <div class="ios-guide-card" role="dialog" aria-modal="true" aria-labelledby="ios-guide-title">
+      <div class="ios-guide-kicker">Melhor no Safari</div>
+      <h2 id="ios-guide-title" class="ios-guide-title">Abra no Safari para uma experiência melhor</h2>
+      <p class="ios-guide-copy">
+        Se você está no Instagram pelo iPhone, o navegador interno pode limitar login, pagamento e navegação.
+        O ideal é abrir este link no Safari antes de continuar.
+      </p>
+      <div id="ios-guide-tutorial" class="ios-guide-tutorial" hidden>
+        <div class="ios-guide-browser">
+          <div class="ios-guide-browser-top">
+            <div class="ios-guide-address">instagram.com • navegador interno</div>
+            <div class="ios-guide-menu" aria-hidden="true">
+              <span class="ios-guide-menu-dot"></span>
+              <span class="ios-guide-menu-dot"></span>
+              <span class="ios-guide-menu-dot"></span>
+            </div>
+          </div>
+          <div class="ios-guide-browser-body">
+            <div class="ios-guide-option">
+              <span>Copiar link</span>
+            </div>
+            <div class="ios-guide-option ios-guide-option-highlight">
+              <span>Abrir no Safari</span>
+              <span class="ios-guide-option-badge">Toque aqui</span>
+            </div>
+            <div class="ios-guide-option">
+              <span>Compartilhar</span>
+            </div>
+          </div>
+        </div>
+        <p class="ios-guide-tip">
+          Dica: depois que abrir no Safari, você pode continuar login, cadastro e pagamentos com mais estabilidade.
+        </p>
+      </div>
+      <ol class="ios-guide-steps">
+        <li class="ios-guide-step">
+          <span class="ios-guide-step-number">1</span>
+          <div>
+            <strong>Toque nos 3 pontinhos</strong>
+            <span>No canto superior ou inferior do navegador interno do Instagram.</span>
+          </div>
+        </li>
+        <li class="ios-guide-step">
+          <span class="ios-guide-step-number">2</span>
+          <div>
+            <strong>Escolha “Abrir no Safari”</strong>
+            <span>Assim o site abre no navegador do iPhone com melhor compatibilidade.</span>
+          </div>
+        </li>
+        <li class="ios-guide-step">
+          <span class="ios-guide-step-number">3</span>
+          <div>
+            <strong>Volte aqui se precisar</strong>
+            <span>Se preferir, você ainda pode continuar no Instagram por sua conta.</span>
+          </div>
+        </li>
+      </ol>
+      <div class="ios-guide-actions">
+        <button id="ios-guide-tutorial-button" type="button" class="ios-guide-button ios-guide-button-primary">
+          Ver tutorial
+        </button>
+        <button id="ios-guide-continue-button" type="button" class="ios-guide-button ios-guide-button-secondary">
+          Continuar no Instagram
+        </button>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var iosUrl = "https://www.varaovaroa.com.br/";
+      var iosButton = document.getElementById("ios-access-button");
+      var overlay = document.getElementById("ios-guide-overlay");
+      var tutorial = document.getElementById("ios-guide-tutorial");
+      var tutorialButton = document.getElementById("ios-guide-tutorial-button");
+      var continueButton = document.getElementById("ios-guide-continue-button");
+
+      if (!iosButton || !overlay || !tutorial || !tutorialButton || !continueButton) return;
+
+      var ua = navigator.userAgent || "";
+      var isIPhone = /iPhone/i.test(ua);
+      var isInstagram = /Instagram/i.test(ua);
+      var shouldShowInstagramIOSGuide = isIPhone && isInstagram;
+
+      var openIosUrl = function () {
+        window.open(iosUrl, "_blank", "noopener,noreferrer");
+      };
+
+      var closeGuide = function () {
+        overlay.classList.remove("is-open");
+        overlay.setAttribute("aria-hidden", "true");
+        tutorial.hidden = true;
+        tutorialButton.textContent = "Ver tutorial";
+      };
+
+      iosButton.addEventListener("click", function (event) {
+        if (!shouldShowInstagramIOSGuide) return;
+        event.preventDefault();
+        tutorial.hidden = true;
+        tutorialButton.textContent = "Ver tutorial";
+        overlay.classList.add("is-open");
+        overlay.setAttribute("aria-hidden", "false");
+      });
+
+      tutorialButton.addEventListener("click", function () {
+        if (tutorial.hidden) {
+          tutorial.hidden = false;
+          tutorialButton.textContent = "Abrir site agora";
+          return;
+        }
+        openIosUrl();
+      });
+
+      continueButton.addEventListener("click", function () {
+        closeGuide();
+        openIosUrl();
+      });
+
+      overlay.addEventListener("click", function (event) {
+        if (event.target === overlay) {
+          closeGuide();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
