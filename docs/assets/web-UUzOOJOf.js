@@ -1,0 +1,1 @@
+import{W as e}from"./index-C5cF_LJL.js";class i extends e{async requestReview(){console.warn("In-App Review is not available on web")}async getPluginVersion(){return{version:"web"}}}export{i as CapgoInAppReviewWeb};
