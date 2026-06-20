@@ -337,8 +337,8 @@
             100% { transform: translate(calc(-50% - 80px), calc(-50% + 30px)) scale(1); opacity: 0; }
         }
     </style>
-  <script type="module" crossorigin src="./assets/index-C5cF_LJL.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-KluB_r9a.css">
+  <script type="module" crossorigin src="./assets/index-BRJMoxaP.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DhlcwXhq.css">
   <script type="module">import.meta.url;import("_").catch(()=>1);(async function*(){})().next();window.__vite_is_modern_browser=true</script>
   <script type="module">!function(){if(window.__vite_is_modern_browser)return;console.warn("vite: loading legacy chunks, syntax error above and the same error below should be ignored");var e=document.getElementById("vite-legacy-polyfill"),n=document.createElement("script");n.src=e.src,n.onload=function(){System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))},document.body.appendChild(n)}();</script>
 </head>
@@ -406,6 +406,123 @@
     <!-- Vite will inject scripts here, but we need the entry point -->
 
     <script>
+        /* ── Instagram In-App Browser guard ─────────────────────────────────
+           Intercepts "Quero me cadastrar" / "Quero criar minha conta" clicks
+           when running inside Instagram's WebView and shows an exit overlay.
+        ──────────────────────────────────────────────────────────────────── */
+        (function () {
+            if (!/Instagram/.test(navigator.userAgent)) return;
+
+            var IS_ANDROID = /Android/.test(navigator.userAgent);
+            var IS_IOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+            var SITE_URL = 'https://varaovaroa.com.br';
+            var PLAY_URL = 'https://play.google.com/store/apps/details?id=br.com.edjapps.varaovaroa';
+
+            function copyLink() {
+                var btn = document.getElementById('ig-copy-btn');
+                function markCopied() {
+                    if (!btn) return;
+                    btn.textContent = '✓ Link copiado!';
+                    btn.style.background = '#10b981';
+                    setTimeout(function () { btn.textContent = '📋 Copiar link'; btn.style.background = '#6b7280'; }, 2500);
+                }
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(SITE_URL).then(markCopied).catch(fallback);
+                } else { fallback(); }
+                function fallback() {
+                    try {
+                        var ta = document.createElement('textarea');
+                        ta.value = SITE_URL; ta.style.cssText = 'position:fixed;opacity:0;';
+                        document.body.appendChild(ta); ta.focus(); ta.select();
+                        document.execCommand('copy'); markCopied();
+                        document.body.removeChild(ta);
+                    } catch (e) {}
+                }
+            }
+
+            function buildOverlay() {
+                var d = document.createElement('div');
+                d.id = 'ig-overlay';
+                d.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(30,20,18,0.82);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:20px;font-family:Inter,sans-serif;animation:igFadeIn .2s ease;';
+
+                /* ── icon ── */
+                var iconHtml = '<div style="width:64px;height:64px;background:#FFF0ED;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:30px;">🌐</div>';
+
+                /* ── title / subtitle ── */
+                var headHtml = '<h2 style="margin:0 0 8px;font-size:19px;font-weight:800;color:#332D2B;">Abra no navegador</h2>'
+                    + '<p style="margin:0 0 18px;font-size:13px;color:#7A6E6A;line-height:1.55;">'
+                    + 'Você está no <strong>navegador do Instagram</strong>. Alguns recursos — como <strong>salvar fotos no perfil</strong> — podem não funcionar aqui.'
+                    + '</p>';
+
+                /* ── Android actions ── */
+                var androidHtml = IS_ANDROID
+                    ? '<a href="intent://varaovaroa.com.br#Intent;scheme=https;package=com.android.chrome;end"'
+                        + ' style="display:block;padding:14px;background:#D67B6B;color:#fff;border-radius:16px;text-decoration:none;text-align:center;font-weight:700;font-size:15px;margin-bottom:10px;">'
+                        + '🌐 Abrir no Chrome</a>'
+                        + '<a href="' + PLAY_URL + '" style="display:block;padding:14px;background:#332D2B;color:#fff;border-radius:16px;text-decoration:none;text-align:center;font-weight:700;font-size:15px;margin-bottom:10px;">'
+                        + '📲 Baixar o App (recomendado)</a>'
+                    : '';
+
+                /* ── iOS instructions ── */
+                var iosHtml = IS_IOS
+                    ? '<div style="background:#FFF8F2;border:1px solid #F5DDD0;border-radius:14px;padding:14px;margin-bottom:12px;text-align:left;">'
+                        + '<p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#332D2B;">Como abrir no Safari:</p>'
+                        + '<p style="margin:0;font-size:13px;color:#5A4D4A;line-height:1.65;">'
+                        + '1. Toque nos <strong>três pontinhos ···</strong> no canto superior direito<br>'
+                        + '2. Selecione <strong>"Abrir no navegador"</strong> ou <strong>"Abrir no Safari"</strong>'
+                        + '</p></div>'
+                    : '';
+
+                /* ── photo warning ── */
+                var warnHtml = '<div style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:14px;padding:11px 13px;margin-bottom:14px;text-align:left;">'
+                    + '<p style="margin:0;font-size:12px;color:#92400E;line-height:1.55;">'
+                    + '<strong>⚠️ Problema conhecido:</strong> O navegador do Instagram bloqueia o salvamento de fotos de perfil. '
+                    + (IS_ANDROID ? 'Para a melhor experiência, baixe o App.' : 'Tente pelo Safari para continuar normalmente.')
+                    + '</p></div>';
+
+                /* ── copy + continue ── */
+                var footerHtml = '<button id="ig-copy-btn" style="width:100%;padding:13px;background:#6b7280;color:#fff;border:none;border-radius:16px;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:8px;">📋 Copiar link</button>'
+                    + '<button id="ig-continue-btn" style="width:100%;padding:10px;background:transparent;color:#A0938E;border:none;font-size:13px;cursor:pointer;text-decoration:underline;">Continuar mesmo assim</button>';
+
+                d.innerHTML = '<div style="background:#fff;border-radius:28px;max-width:380px;width:100%;padding:28px;text-align:center;max-height:88vh;overflow-y:auto;">'
+                    + iconHtml + headHtml + androidHtml + iosHtml + warnHtml + footerHtml
+                    + '</div>';
+
+                return d;
+            }
+
+            function showOverlay() {
+                if (document.getElementById('ig-overlay')) return;
+                var overlay = buildOverlay();
+                document.body.appendChild(overlay);
+                overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.remove(); });
+                document.getElementById('ig-copy-btn').addEventListener('click', copyLink);
+                document.getElementById('ig-continue-btn').addEventListener('click', function () { overlay.remove(); });
+            }
+
+            /* Intercept register-button clicks (capture phase, before React) */
+            var REGISTER_KEYWORDS = ['quero me cadastrar', 'quero criar minha conta', 'criar minha conta', 'quero criar'];
+            document.addEventListener('click', function (e) {
+                var el = e.target;
+                for (var i = 0; i < 6; i++) {
+                    if (!el) break;
+                    var txt = (el.textContent || '').trim().toLowerCase();
+                    for (var k = 0; k < REGISTER_KEYWORDS.length; k++) {
+                        if (txt.indexOf(REGISTER_KEYWORDS[k]) !== -1) {
+                            e.preventDefault(); e.stopPropagation();
+                            showOverlay(); return;
+                        }
+                    }
+                    el = el.parentElement;
+                }
+            }, true /* capture */);
+
+            /* Fade-in keyframe (injected once) */
+            var st = document.createElement('style');
+            st.textContent = '@keyframes igFadeIn{from{opacity:0}to{opacity:1}}';
+            document.head.appendChild(st);
+        })();
+
         window.process = { env: { API_KEY: '' } };
 
         var VERSES_OF_DAY = [
@@ -487,7 +604,7 @@
     </script>
   <script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
   <script nomodule crossorigin id="vite-legacy-polyfill" src="./assets/polyfills-legacy-CuVecw5w.js"></script>
-  <script nomodule crossorigin id="vite-legacy-entry" data-src="./assets/index-legacy-DmMsvynT.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
+  <script nomodule crossorigin id="vite-legacy-entry" data-src="./assets/index-legacy-CFZ_DeU7.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
 </body>
 
 </html>
