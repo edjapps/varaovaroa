@@ -460,57 +460,85 @@
       align-items: flex-end;
       justify-content: center;
       padding: 0;
-      background: rgba(20, 15, 14, 0.78);
-      backdrop-filter: blur(12px);
+      background: rgba(20, 15, 14, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .ig-overlay[hidden] {
-      display: none;
+      display: none !important;
     }
 
     .ig-card {
       width: 100%;
       max-width: 520px;
-      border-radius: 32px 32px 0 0;
-      padding: 32px 28px calc(28px + env(safe-area-inset-bottom, 0px));
-      background: rgba(255, 253, 251, 0.98);
+      border-radius: 28px 28px 0 0;
+      background: #fffdfb;
       border: 1px solid rgba(255, 255, 255, 0.9);
-      box-shadow: 0 -16px 60px rgba(43, 36, 35, 0.22);
+      box-shadow: 0 -16px 60px rgba(43, 36, 35, 0.26);
+      display: flex;
+      flex-direction: column;
+      max-height: calc(92vh - env(safe-area-inset-top, 0px));
+      overflow: hidden;
     }
 
-    .ig-warning-badge {
+    .ig-card-inner {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 28px 24px calc(24px + env(safe-area-inset-bottom, 16px));
+      flex: 1 1 auto;
+    }
+
+    .ig-handle {
+      width: 36px;
+      height: 4px;
+      border-radius: 99px;
+      background: rgba(120, 108, 104, 0.22);
+      margin: 12px auto 0;
+      flex-shrink: 0;
+    }
+
+    .ig-platform-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
+      gap: 7px;
+      padding: 6px 13px;
       border-radius: 999px;
-      background: rgba(214, 123, 107, 0.12);
-      color: var(--primary-deep);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 800;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
+    }
+
+    .ig-platform-badge.android {
+      background: rgba(61, 220, 132, 0.13);
+      color: #1a7a42;
+    }
+
+    .ig-platform-badge.ios {
+      background: rgba(28, 111, 179, 0.12);
+      color: var(--accent-deep);
     }
 
     .ig-title {
-      margin: 0 0 10px;
+      margin: 0 0 8px;
       font-family: "Playfair Display", serif;
-      font-size: clamp(1.6rem, 5vw, 2.2rem);
-      line-height: 1.05;
+      font-size: clamp(1.45rem, 5vw, 2rem);
+      line-height: 1.1;
       letter-spacing: -0.03em;
       color: var(--ink);
     }
 
     .ig-subtitle {
-      margin: 0 0 22px;
+      margin: 0 0 20px;
       color: var(--muted);
-      font-size: 15px;
-      line-height: 1.7;
+      font-size: 14px;
+      line-height: 1.65;
     }
 
     .ig-steps {
-      margin: 0 0 20px;
+      margin: 0 0 18px;
       padding: 0;
       list-style: none;
       display: grid;
@@ -521,34 +549,37 @@
       display: flex;
       align-items: flex-start;
       gap: 14px;
-      padding: 16px;
-      border-radius: 20px;
+      padding: 15px 16px;
+      border-radius: 18px;
       background: #fff;
-      border: 1px solid var(--line);
-      box-shadow: 0 4px 12px rgba(87, 56, 46, 0.05);
+      border: 1px solid rgba(115, 88, 79, 0.1);
+      box-shadow: 0 2px 10px rgba(87, 56, 46, 0.05);
     }
 
-    .ig-step-num {
+    .ig-step-icon {
       flex: 0 0 auto;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      border-radius: 13px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
-      font-weight: 800;
-      color: #fff;
-      background: linear-gradient(135deg, var(--primary), #e48f74);
+      font-size: 19px;
+      line-height: 1;
     }
 
-    .ig-step-android .ig-step-num {
-      background: linear-gradient(135deg, #3ddc84, #1db954);
+    .ig-step-icon.android {
+      background: rgba(61, 220, 132, 0.13);
+    }
+
+    .ig-step-icon.ios {
+      background: rgba(28, 111, 179, 0.11);
     }
 
     .ig-step strong {
       display: block;
       font-size: 14px;
+      font-weight: 800;
       margin-bottom: 3px;
       color: var(--ink);
     }
@@ -560,6 +591,21 @@
       line-height: 1.55;
     }
 
+    .ig-divider {
+      height: 1px;
+      background: rgba(115, 88, 79, 0.1);
+      margin: 18px 0;
+    }
+
+    .ig-copy-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 10px;
+    }
+
     .ig-actions {
       display: grid;
       gap: 10px;
@@ -569,48 +615,46 @@
       width: 100%;
       border: 0;
       cursor: pointer;
-      min-height: 56px;
-      padding: 14px 20px;
-      border-radius: 20px;
+      min-height: 54px;
+      padding: 13px 20px;
+      border-radius: 18px;
       font-family: "Inter", sans-serif;
       font-size: 15px;
       font-weight: 800;
-      transition: transform 0.18s ease, filter 0.18s ease, opacity 0.18s ease;
+      transition: transform 0.18s ease, filter 0.18s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-    }
-
-    .ig-btn:hover {
-      transform: translateY(-1px);
-      filter: saturate(1.04);
+      gap: 9px;
+      letter-spacing: -0.01em;
     }
 
     .ig-btn:active {
-      transform: scale(0.98);
+      transform: scale(0.97);
     }
 
     .ig-btn-copy {
       color: #fff;
       background: linear-gradient(135deg, var(--primary) 0%, #e48f74 100%);
-      box-shadow: 0 14px 28px rgba(214, 123, 107, 0.28);
+      box-shadow: 0 10px 24px rgba(214, 123, 107, 0.28);
     }
 
     .ig-btn-copy.copied {
       background: linear-gradient(135deg, #3dba6a, #2ea05a);
-      box-shadow: 0 14px 28px rgba(46, 160, 90, 0.28);
+      box-shadow: 0 10px 24px rgba(46, 160, 90, 0.28);
     }
 
     .ig-btn-skip {
       color: var(--muted);
-      background: rgba(120, 108, 104, 0.1);
+      background: rgba(120, 108, 104, 0.09);
+      font-size: 14px;
       font-weight: 700;
     }
 
     @media (min-width: 521px) {
       .ig-card {
-        border-radius: 32px;
+        border-radius: 28px;
+        max-height: calc(90vh - 48px);
         margin-bottom: 32px;
       }
 
@@ -750,56 +794,61 @@
   <!-- Instagram browser warning — shown automatically on page load when Instagram is detected -->
   <div id="ig-overlay" class="ig-overlay" hidden aria-modal="true" role="dialog" aria-labelledby="ig-title">
     <div class="ig-card">
-      <div class="ig-warning-badge">⚠ Navegador interno do Instagram</div>
-      <h2 id="ig-title" class="ig-title">Abra no navegador do celular</h2>
-      <p class="ig-subtitle">
-        O navegador do Instagram pode ter dificuldade com envio de fotos e outras funções do app.
-        Siga os passos abaixo para continuar no Chrome ou Safari.
-      </p>
+      <div class="ig-handle"></div>
+      <div class="ig-card-inner">
+        <div id="ig-badge-android" class="ig-platform-badge android" style="display:none">📱 Instagram · Android</div>
+        <div id="ig-badge-ios" class="ig-platform-badge ios" style="display:none">📱 Instagram · iPhone</div>
+        <h2 id="ig-title" class="ig-title">Abra no navegador do celular</h2>
+        <p class="ig-subtitle">
+          O navegador do Instagram não funciona bem com o login e envio de fotos. Siga os passos abaixo — é rápido!
+        </p>
 
-      <!-- Android steps -->
-      <ol id="ig-steps-android" class="ig-steps" hidden>
-        <li class="ig-step ig-step-android">
-          <span class="ig-step-num">1</span>
-          <div>
-            <strong>Toque nos 3 pontinhos (⋮)</strong>
-            <span>No canto superior direito do navegador do Instagram.</span>
-          </div>
-        </li>
-        <li class="ig-step ig-step-android">
-          <span class="ig-step-num">2</span>
-          <div>
-            <strong>Escolha "Abrir no Chrome"</strong>
-            <span>Ou "Abrir no navegador" caso Chrome não apareça.</span>
-          </div>
-        </li>
-      </ol>
+        <!-- Android steps -->
+        <ol id="ig-steps-android" class="ig-steps" style="display:none">
+          <li class="ig-step">
+            <div class="ig-step-icon android">⋮</div>
+            <div>
+              <strong>Toque nos 3 pontinhos (⋮)</strong>
+              <span>No canto superior direito, dentro do Instagram.</span>
+            </div>
+          </li>
+          <li class="ig-step">
+            <div class="ig-step-icon android">🌐</div>
+            <div>
+              <strong>Toque em "Abrir no Chrome"</strong>
+              <span>Ou "Abrir no navegador" se o Chrome não aparecer.</span>
+            </div>
+          </li>
+        </ol>
 
-      <!-- iOS steps -->
-      <ol id="ig-steps-ios" class="ig-steps" hidden>
-        <li class="ig-step">
-          <span class="ig-step-num">1</span>
-          <div>
-            <strong>Toque nos 3 pontinhos ou no ícone de compartilhar</strong>
-            <span>No canto inferior ou superior do navegador interno do Instagram.</span>
-          </div>
-        </li>
-        <li class="ig-step">
-          <span class="ig-step-num">2</span>
-          <div>
-            <strong>Escolha "Abrir no Safari"</strong>
-            <span>Assim o site abre no navegador do iPhone com melhor compatibilidade.</span>
-          </div>
-        </li>
-      </ol>
+        <!-- iOS steps -->
+        <ol id="ig-steps-ios" class="ig-steps" style="display:none">
+          <li class="ig-step">
+            <div class="ig-step-icon ios">⬆</div>
+            <div>
+              <strong>Toque no ícone de compartilhar (⬆)</strong>
+              <span>Na barra inferior do navegador do Instagram — o ícone tem uma seta para cima.</span>
+            </div>
+          </li>
+          <li class="ig-step">
+            <div class="ig-step-icon ios">🌐</div>
+            <div>
+              <strong>Toque em "Abrir no Safari"</strong>
+              <span>Ou "Abrir no navegador". O site vai funcionar completamente por lá.</span>
+            </div>
+          </li>
+        </ol>
 
-      <div class="ig-actions">
-        <button id="ig-copy-btn" type="button" class="ig-btn ig-btn-copy">
-          Copiar https://www.varaovaroa.com.br
-        </button>
-        <button id="ig-close-btn" type="button" class="ig-btn ig-btn-skip">
-          Entendi
-        </button>
+        <div class="ig-divider"></div>
+        <p class="ig-copy-label">Ou copie o endereço e cole no navegador</p>
+        <div class="ig-actions">
+          <button id="ig-copy-btn" type="button" class="ig-btn ig-btn-copy">
+            📋 Copiar link do site
+          </button>
+          <button id="ig-close-btn" type="button" class="ig-btn ig-btn-skip">
+            Continuar aqui mesmo
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -810,40 +859,37 @@
       var ua = navigator.userAgent || '';
       var isInstagram = /Instagram/i.test(ua);
       var isIOS = /iPhone|iPad|iPod/i.test(ua);
-      var iosButton = document.querySelector('.button-ios');
 
       if (!isInstagram) {
-        // Not in Instagram browser — go straight to the app
         window.location.replace(APP_URL);
         return;
       }
 
-      // Instagram browser detected — show warning overlay
       var overlay = document.getElementById('ig-overlay');
       var stepsAndroid = document.getElementById('ig-steps-android');
       var stepsIOS = document.getElementById('ig-steps-ios');
+      var badgeAndroid = document.getElementById('ig-badge-android');
+      var badgeIOS = document.getElementById('ig-badge-ios');
       var copyBtn = document.getElementById('ig-copy-btn');
       var closeBtn = document.getElementById('ig-close-btn');
 
-      if (!overlay || !stepsAndroid || !stepsIOS || !copyBtn || !closeBtn || !iosButton) return;
+      if (!overlay || !stepsAndroid || !stepsIOS || !copyBtn || !closeBtn) return;
 
-      var showOverlay = function () {
-        stepsIOS.hidden = !isIOS;
-        stepsAndroid.hidden = isIOS;
-        overlay.hidden = false;
-      };
-
-      iosButton.addEventListener('click', function (event) {
-        event.preventDefault();
-        showOverlay();
-      });
+      // Show platform-specific steps and badge immediately
+      if (isIOS) {
+        stepsIOS.style.display = 'grid';
+        if (badgeIOS) badgeIOS.style.display = 'inline-flex';
+      } else {
+        stepsAndroid.style.display = 'grid';
+        if (badgeAndroid) badgeAndroid.style.display = 'inline-flex';
+      }
+      overlay.hidden = false;
 
       // Copy link button
       copyBtn.addEventListener('click', function () {
         var url = APP_URL;
 
         var doFallback = function () {
-          // Fallback: select text from a temporary input
           try {
             var input = document.createElement('input');
             input.value = url;
@@ -862,16 +908,14 @@
           doFallback();
         }
 
-        // Visual feedback
         copyBtn.classList.add('copied');
-        copyBtn.textContent = 'Site copiado! Abra no Safari ou Chrome.';
+        copyBtn.textContent = '✓ Link copiado! Cole no Safari ou Chrome.';
         setTimeout(function () {
           copyBtn.classList.remove('copied');
-          copyBtn.textContent = 'Copiar https://www.varaovaroa.com.br';
+          copyBtn.textContent = '📋 Copiar link do site';
         }, 3500);
       });
 
-      // Skip button — dismiss overlay and go to app (limited experience)
       closeBtn.addEventListener('click', function () {
         overlay.hidden = true;
       });
