@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Redefinir senha – Varão Varoa</title>
+<title>Redefinir senha - Varao Varoa</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#fdfbf7;color:#332d2b;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:16px}.card{width:100%;max-width:420px;background:#fff;border-radius:24px;box-shadow:0 20px 40px rgba(0,0,0,.08);padding:24px 24px 28px}h1{font-size:22px;margin:0 0 8px}p{font-size:14px;margin:0 0 16px;color:#7a6f6a}label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:#5a4d4a}input[type=password]{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #eae2de;font-size:14px;outline:0}input[type=password]:focus{border-color:#d67b6b;box-shadow:0 0 0 1px rgba(214,123,107,.08)}.field{margin-bottom:14px}button{width:100%;padding:12px;border-radius:999px;border:0;font-size:14px;font-weight:600;cursor:pointer}button.primary{background:linear-gradient(90deg,#d67b6b,#e8958a);color:#fff}button.primary:disabled{opacity:.6;cursor:not-allowed}.message{margin-top:12px;font-size:13px;padding:10px 12px;border-radius:12px}.message.error{background:#fef2f2;color:#b91c1c;border:1px solid #fecaca}.message.success{background:#ecfdf3;color:#166534;border:1px solid #bbf7d0}.footer{margin-top:16px;font-size:11px;text-align:center;color:#a0938e}.hidden{display:none}
 </style>
@@ -11,7 +11,7 @@
 <body>
   <div class="card">
     <h1>Redefinir Senha</h1>
-    <p>Defina uma nova senha para o Varão Varoa App.</p>
+    <p>Defina uma nova senha para o Varao Varoa App.</p>
     <form id="reset-form">
       <div class="field">
         <label for="password">Nova senha</label>
@@ -24,7 +24,7 @@
       <button type="submit" class="primary" id="submit-btn">Salvar nova senha</button>
     </form>
     <div id="message" class="message hidden"></div>
-    <div class="footer">Se você não solicitou essa alteração, pode ignorar este link.</div>
+    <div class="footer">Se voce nao solicitou essa alteracao, pode ignorar este link.</div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
@@ -35,34 +35,184 @@
     const confirmInput = document.getElementById('confirm-password');
     const submitBtn = document.getElementById('submit-btn');
     const messageBox = document.getElementById('message');
-    function showMessage(t, type){messageBox.textContent=t;messageBox.classList.remove('hidden','error','success');messageBox.classList.add(type==='error'?'error':'success')}
-    function disableForm(){passwordInput.disabled=true;confirmInput.disabled=true;submitBtn.disabled=true}
-    if(!SUPABASE_URL||!SUPABASE_ANON_KEY){showMessage('Configuração ausente. Contate o suporte.', 'error');disableForm()}
-    const { createClient } = supabase;
-    const client = (SUPABASE_URL&&SUPABASE_ANON_KEY)?createClient(SUPABASE_URL, SUPABASE_ANON_KEY):null;
-    async function ensureRecoverySession(){
-      if(!client) return;
-      const { data, error } = await client.auth.getSession();
-      if(error || !data.session){showMessage('Link inválido ou expirado. Solicite um novo e‑mail.', 'error');disableForm()}
+
+    function showMessage(text, type) {
+      messageBox.textContent = text;
+      messageBox.classList.remove('hidden', 'error', 'success');
+      messageBox.classList.add(type === 'error' ? 'error' : 'success');
     }
-    ensureRecoverySession();
-    form.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      if(!client) return;
+
+    function hideMessage() {
       messageBox.classList.add('hidden');
-      const password=passwordInput.value.trim();
-      const confirm=confirmInput.value.trim();
-      if(password.length<6){showMessage('A nova senha deve ter pelo menos 6 caracteres.', 'error');return}
-      if(password!==confirm){showMessage('As senhas não conferem. Verifique e tente novamente.', 'error');return}
-      submitBtn.disabled=true;submitBtn.textContent='Salvando...';
-      try{
-        const { error } = await client.auth.updateUser({ password });
-        if(error){showMessage('Não foi possível atualizar sua senha. Tente novamente ou solicite um novo link.', 'error');submitBtn.disabled=false;submitBtn.textContent='Salvar nova senha';return}
-        showMessage('Senha redefinida com sucesso! Você já pode voltar ao app e entrar com a nova senha.', 'success');
+      messageBox.textContent = '';
+      messageBox.classList.remove('error', 'success');
+    }
+
+    function disableForm() {
+      passwordInput.disabled = true;
+      confirmInput.disabled = true;
+      submitBtn.disabled = true;
+    }
+
+    function setSubmitting(isSubmitting) {
+      submitBtn.disabled = isSubmitting;
+      submitBtn.textContent = isSubmitting ? 'Salvando...' : 'Salvar nova senha';
+    }
+
+    function parseRecoveryUrl(rawUrl) {
+      const url = new URL(rawUrl);
+      const query = url.searchParams;
+      const hash = new URLSearchParams(url.hash.replace(/^#/, ''));
+      const read = (key) => query.get(key) || hash.get(key) || '';
+
+      return {
+        code: read('code'),
+        type: read('type'),
+        tokenHash: read('token_hash'),
+        error: read('error'),
+        errorDescription: decodeURIComponent(read('error_description') || ''),
+        accessToken: read('access_token'),
+        refreshToken: read('refresh_token')
+      };
+    }
+
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      showMessage('Configuracao ausente. Contate o suporte.', 'error');
+      disableForm();
+    }
+
+    const { createClient } = supabase;
+    const client = (SUPABASE_URL && SUPABASE_ANON_KEY)
+      ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+          auth: {
+            detectSessionInUrl: false,
+            flowType: 'implicit',
+            autoRefreshToken: true,
+            persistSession: true
+          }
+        })
+      : null;
+
+    let hasRecoverySession = false;
+
+    async function prepareRecoverySession() {
+      if (!client) return;
+
+      const parsed = parseRecoveryUrl(window.location.href);
+      console.log('[Reset Web] received URL', {
+        href: window.location.href,
+        hasCode: !!parsed.code,
+        hasAccessToken: !!parsed.accessToken,
+        hasRefreshToken: !!parsed.refreshToken,
+        hasTokenHash: !!parsed.tokenHash,
+        type: parsed.type || null,
+        error: parsed.error || null,
+        errorDescription: parsed.errorDescription || null
+      });
+
+      try {
+        if (parsed.errorDescription) {
+          throw new Error(parsed.errorDescription);
+        }
+
+        if (parsed.code) {
+          console.log('[Reset Web] exchanging code for session');
+          const { data, error } = await client.auth.exchangeCodeForSession(parsed.code);
+          console.log('[Reset Web] exchangeCodeForSession result', {
+            hasSession: !!data.session,
+            sessionUserEmail: data.session?.user?.email || null,
+            error: error?.message || null
+          });
+          if (error) throw error;
+        } else if (parsed.accessToken && parsed.refreshToken) {
+          console.log('[Reset Web] setting session from tokens');
+          const { data, error } = await client.auth.setSession({
+            access_token: parsed.accessToken,
+            refresh_token: parsed.refreshToken
+          });
+          console.log('[Reset Web] setSession result', {
+            hasSession: !!data.session,
+            sessionUserEmail: data.session?.user?.email || null,
+            error: error?.message || null
+          });
+          if (error) throw error;
+        }
+
+        const { data, error } = await client.auth.getSession();
+        console.log('[Reset Web] getSession result', {
+          hasSession: !!data.session,
+          sessionUserEmail: data.session?.user?.email || null,
+          error: error?.message || null
+        });
+
+        if (error) throw error;
+        if (!data.session) throw new Error('Missing recovery session');
+
+        hasRecoverySession = true;
+        hideMessage();
+      } catch (error) {
+        console.error('[Reset Web] failed to prepare recovery session', error);
+        showMessage('Link invalido ou expirado. Solicite um novo e-mail.', 'error');
         disableForm();
-      }catch(err){
+      }
+    }
+
+    if (client) {
+      client.auth.onAuthStateChange((event, session) => {
+        console.log('[Reset Web] onAuthStateChange', {
+          event,
+          hasSession: !!session,
+          sessionUserEmail: session?.user?.email || null
+        });
+      });
+    }
+
+    prepareRecoverySession();
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!client || !hasRecoverySession) return;
+
+      hideMessage();
+      const password = passwordInput.value.trim();
+      const confirm = confirmInput.value.trim();
+
+      if (password.length < 6) {
+        showMessage('A nova senha deve ter pelo menos 6 caracteres.', 'error');
+        return;
+      }
+
+      if (password !== confirm) {
+        showMessage('As senhas nao conferem. Verifique e tente novamente.', 'error');
+        return;
+      }
+
+      setSubmitting(true);
+      try {
+        const { data: sessionData, error: sessionError } = await client.auth.getSession();
+        console.log('[Reset Web] getSession before updateUser', {
+          hasSession: !!sessionData.session,
+          sessionUserEmail: sessionData.session?.user?.email || null,
+          error: sessionError?.message || null
+        });
+
+        const { error } = await client.auth.updateUser({ password });
+        console.log('[Reset Web] updateUser result', {
+          error: error?.message || null
+        });
+
+        if (error) {
+          showMessage('Nao foi possivel atualizar sua senha. Tente novamente ou solicite um novo link.', 'error');
+          setSubmitting(false);
+          return;
+        }
+
+        showMessage('Senha redefinida com sucesso! Voce ja pode voltar ao app e entrar com a nova senha.', 'success');
+        disableForm();
+      } catch (err) {
+        console.error('[Reset Web] unexpected updateUser error', err);
         showMessage('Ocorreu um erro inesperado. Tente novamente mais tarde.', 'error');
-        submitBtn.disabled=false;submitBtn.textContent='Salvar nova senha';
+        setSubmitting(false);
       }
     });
   </script>
