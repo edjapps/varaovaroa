@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Comprar VIP – Varão Varoa</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#fdfbf7;color:#332d2b;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:16px}
+.card{width:100%;max-width:440px;background:#fff;border-radius:24px;box-shadow:0 20px 40px rgba(0,0,0,.08);padding:28px 24px 32px;margin:auto}
+.logo{text-align:center;margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:10px}
+.logo-img{width:40px;height:40px;border-radius:10px;object-fit:contain}
+.logo span{font-size:20px;font-weight:900;color:#d67b6b;letter-spacing:-0.5px}
+h1{font-size:20px;font-weight:800;margin:0 0 6px;color:#332d2b}
+.subtitle{font-size:14px;margin:0 0 20px;color:#7a6f6a}
+label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:#5a4d4a}
+input[type=email]{width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid #eae2de;font-size:14px;outline:none;transition:border-color .15s}
+input[type=email]:focus{border-color:#d67b6b;box-shadow:0 0 0 3px rgba(214,123,107,.1)}
+.field{margin-bottom:16px}
+.btn{width:100%;padding:13px;border-radius:999px;border:0;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-primary{background:linear-gradient(90deg,#d67b6b,#e8958a);color:#fff}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed}
+.btn-primary:not(:disabled):hover{transform:scale(1.02)}
+.btn-blue{background:#4a90e2;color:#fff}
+.btn-blue:hover{background:#3a80d2}
+.btn-outline{background:#fff;color:#332d2b;border:1.5px solid #eae2de}
+.btn-outline:hover{border-color:#d67b6b;color:#d67b6b}
+.message{margin-top:12px;font-size:13px;padding:11px 14px;border-radius:12px;display:none}
+.message.error{background:#fef2f2;color:#b91c1c;border:1px solid #fecaca;display:block}
+.message.success{background:#ecfdf3;color:#166534;border:1px solid #bbf7d0;display:block}
+.message.info{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;display:block}
+.back{font-size:13px;color:#7a6f6a;cursor:pointer;margin-bottom:16px;display:inline-flex;align-items:center;gap:4px}
+.back:hover{color:#d67b6b}
+.plans-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.plan-card{border:2px solid #eae2de;border-radius:16px;padding:16px 18px;cursor:pointer;transition:all .15s;display:flex;justify-content:space-between;align-items:center}
+.plan-card:hover{border-color:#d67b6b;background:#fef9f7}
+.plan-card.selected{border-color:#d67b6b;background:#fef3f1}
+.plan-name{font-weight:800;font-size:15px;color:#332d2b}
+.plan-desc{font-size:12px;color:#7a6f6a;margin-top:2px}
+.plan-price{font-size:18px;font-weight:900;color:#d67b6b;text-align:right}
+.plan-price small{font-size:11px;font-weight:600;color:#a0938e;display:block}
+.methods{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.method-btn{border:2px solid #eae2de;border-radius:14px;padding:14px 12px;cursor:pointer;background:#fff;transition:all .15s;text-align:center}
+.method-btn:hover{border-color:#d67b6b}
+.method-btn.selected{border-color:#d67b6b;background:#fef3f1}
+.method-icon{font-size:22px;margin-bottom:4px}
+.method-label{font-size:13px;font-weight:700;color:#332d2b}
+.method-hint{font-size:11px;color:#7a6f6a;margin-top:2px}
+.qr-wrap{text-align:center;margin:16px 0}
+canvas#qr-canvas{border-radius:12px;border:1px solid #eae2de}
+.qr-fallback{display:none;border-radius:12px;border:1px solid #eae2de;max-width:200px}
+.copy-box{background:#f6f1ea;border-radius:12px;padding:12px 14px;margin:12px 0;display:flex;align-items:center;gap:10px}
+.copy-box code{font-size:11px;word-break:break-all;flex:1;color:#5a4d4a;font-family:monospace}
+.btn-copy{flex-shrink:0;padding:7px 12px;border-radius:8px;border:0;background:#d67b6b;color:#fff;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-copy:hover{background:#c46b5b}
+.btn-copy.copied{background:#16a34a}
+.countdown-box{background:#fff9ed;border:1px solid #f5c26b;border-radius:12px;padding:10px 14px;margin-bottom:14px;font-size:13px;color:#92400e;display:flex;align-items:center;gap:8px}
+.poll-hint{font-size:12px;color:#7a6f6a;text-align:center;margin:10px 0 0}
+.success-icon{font-size:52px;text-align:center;margin-bottom:12px}
+.vip-badge{display:inline-block;background:linear-gradient(90deg,#f5c26b,#e8958a);color:#fff;font-size:12px;font-weight:800;padding:4px 12px;border-radius:999px;margin-bottom:12px}
+.end-date{font-size:13px;color:#7a6f6a;text-align:center;margin-top:8px}
+.step{display:none}
+.step.active{display:block}
+.loading-dots::after{content:"...";animation:dots 1s infinite}
+@keyframes dots{0%{content:"."}33%{content:".."}66%{content:"..."}}
+.spinner{display:inline-block;width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.selected-summary{background:#f6f1ea;border-radius:12px;padding:12px 14px;margin-bottom:18px;font-size:13px;color:#5a4d4a}
+.selected-summary strong{color:#332d2b}
+.card-link-btn{display:block;text-decoration:none;margin-bottom:12px}
+.security-note{font-size:11px;color:#a0938e;text-align:center;margin-top:16px}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">
+    <img src="../icon4.png" alt="Varão Varoa" class="logo-img" />
+    <span>Varão Varoa</span>
+  </div>
+
+  <!-- STEP 1: Email -->
+  <div id="step-email" class="step active">
+    <h1>Comprar VIP</h1>
+    <p class="subtitle">Informe o e-mail cadastrado no app para continuar.</p>
+    <form id="email-form">
+      <div class="field">
+        <label for="email-input">E-mail do app</label>
+        <input id="email-input" type="email" placeholder="seu@email.com" autocomplete="email" required />
+      </div>
+      <button type="submit" class="btn btn-primary" id="email-btn">Continuar</button>
+    </form>
+    <div id="email-msg" class="message"></div>
+  </div>
+
+  <!-- STEP 2: Plans -->
+  <div id="step-plans" class="step">
+    <span class="back" onclick="goTo('email')">← Voltar</span>
+    <h1>Escolha seu plano</h1>
+    <p class="subtitle" id="plans-greeting">Planos VIP disponíveis:</p>
+    <div id="plans-grid" class="plans-grid"></div>
+    <div id="plans-msg" class="message"></div>
+  </div>
+
+  <!-- STEP 3: Payment method -->
+  <div id="step-payment" class="step">
+    <span class="back" onclick="goTo('plans')">← Voltar</span>
+    <h1>Como pagar?</h1>
+    <div id="payment-summary" class="selected-summary"></div>
+    <div id="methods-grid" class="methods"></div>
+    <button class="btn btn-primary" id="pay-btn" onclick="startPayment()" disabled>Pagar agora</button>
+    <div id="payment-msg" class="message"></div>
+  </div>
+
+  <!-- STEP 4a: Waiting — PIX -->
+  <div id="step-pix" class="step">
+    <h1>Pague via PIX</h1>
+    <p class="subtitle">Escaneie o QR Code ou copie o código abaixo.</p>
+    <div id="pix-countdown" class="countdown-box">
+      ⏱ Expira em <strong id="pix-timer">30:00</strong>
+    </div>
+    <div class="qr-wrap">
+      <canvas id="qr-canvas" width="200" height="200"></canvas>
+      <img id="qr-fallback" class="qr-fallback" alt="QR Code PIX" width="200" height="200" />
+    </div>
+    <div class="copy-box">
+      <code id="pix-code"></code>
+      <button class="btn-copy" id="copy-btn" onclick="copyPix()">Copiar</button>
+    </div>
+    <p class="poll-hint">Aguardando confirmação do pagamento<span class="loading-dots"></span></p>
+    <div id="pix-msg" class="message"></div>
+  </div>
+
+  <!-- STEP 4b: Waiting — Card -->
+  <div id="step-card" class="step">
+    <h1>Pagamento com cartão</h1>
+    <p class="subtitle">Clique abaixo para abrir o checkout seguro. Após pagar, aguarde a confirmação aqui.</p>
+    <a id="card-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary card-link-btn">
+      Abrir Checkout
+    </a>
+    <div id="card-countdown" class="countdown-box">
+      ⏱ Expira em <strong id="card-timer">30:00</strong>
+    </div>
+    <p class="poll-hint">Aguardando confirmação do pagamento<span class="loading-dots"></span></p>
+    <div id="card-msg" class="message"></div>
+  </div>
+
+  <!-- STEP 5: Success -->
+  <div id="step-success" class="step">
+    <div class="success-icon">🎉</div>
+    <div style="text-align:center">
+      <div class="vip-badge">✨ VIP Ativado!</div>
+      <h1 style="margin-top:8px">Pagamento confirmado!</h1>
+      <p class="subtitle">Seu VIP já está ativo. Abra o app Varão Varoa para aproveitar.</p>
+      <p class="end-date" id="success-end-date"></p>
+    </div>
+  </div>
+
+  <!-- STEP 6: Expired/Error -->
+  <div id="step-error" class="step">
+    <div class="success-icon">⚠️</div>
+    <h1>Pagamento não confirmado</h1>
+    <p class="subtitle" id="error-text">O tempo de pagamento expirou ou foi cancelado.</p>
+    <button class="btn btn-primary" onclick="goTo('plans')" style="margin-bottom:10px">Tentar novamente</button>
+    <button class="btn btn-outline" onclick="goTo('email')">Trocar e-mail</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script>
+  const SUPABASE_URL = window.SUPABASE_URL || 'https://bsgvumeymfalspmaaikp.supabase.co';
+  const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzZ3Z1bWV5bWZhbHNwbWFhaWtwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3MzY1MjAsImV4cCI6MjA4NzMxMjUyMH0.bEaUhxoGLmnuC7X4Mgvbda7l5tO4IBVvVEuFe0WRrLM';
+  const FN_URL = SUPABASE_URL.replace(/\/$/, '') + '/functions/v1/public-vip-checkout';
+
+  let userData = null;       // { user_id, email, first_name }
+  let plans = [];
+  let selectedPlan = null;
+  let selectedMethod = null; // 'pix' | 'card'
+  let paymentSession = null; // { payment_id, external_payment_id, payment_url, pix_copy_paste, expires_at }
+  let pollTimer = null;
+  let countdownTimer = null;
+
+  // ── Navigation ──────────────────────────────────────────────────────────────
+
+  function goTo(step) {
+    document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+    document.getElementById('step-' + step).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  // ── API ──────────────────────────────────────────────────────────────────────
+
+  async function callFn(body) {
+    const res = await fetch(FN_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json().catch(() => ({}));
+    return { ok: res.ok, status: res.status, data };
+  }
+
+  // ── Step 1: Email ─────────────────────────────────────────────────────────
+
+  document.getElementById('email-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const emailInput = document.getElementById('email-input');
+    const btn = document.getElementById('email-btn');
+    const msg = document.getElementById('email-msg');
+    const email = emailInput.value.trim().toLowerCase();
+
+    msg.className = 'message';
+    msg.textContent = '';
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>Verificando...';
+
+    const { ok, data } = await callFn({ action: 'lookup_email', email });
+
+    btn.disabled = false;
+    btn.innerHTML = 'Continuar';
+
+    if (!ok || !data.success) {
+      msg.className = 'message error';
+      msg.textContent = data.error || 'Não foi possível verificar o e-mail.';
+      return;
+    }
+
+    userData = { user_id: data.user_id, email, first_name: data.first_name };
+    await loadAndShowPlans();
+  });
+
+  // ── Step 2: Plans ─────────────────────────────────────────────────────────
+
+  async function loadAndShowPlans() {
+    const grid = document.getElementById('plans-grid');
+    const msg = document.getElementById('plans-msg');
+    const greeting = document.getElementById('plans-greeting');
+
+    grid.innerHTML = '<p style="color:#7a6f6a;font-size:14px">Carregando planos<span class="loading-dots"></span></p>';
+    msg.className = 'message';
+    goTo('plans');
+
+    if (userData.first_name) {
+      greeting.textContent = 'Olá, ' + userData.first_name + '! Escolha um plano:';
+    }
+
+    if (plans.length === 0) {
+      const { ok, data } = await callFn({ action: 'get_plans' });
+      if (!ok || !data.success || !data.plans.length) {
+        grid.innerHTML = '';
+        msg.className = 'message error';
+        msg.textContent = data?.error || 'Nenhum plano disponível no momento.';
+        return;
+      }
+      plans = data.plans;
+    }
+
+    grid.innerHTML = '';
+    plans.forEach(plan => {
+      const price = formatPrice(plan.price, plan.price_text);
+      const days = plan.days_count ? plan.days_count + ' dias' : '';
+      const card = document.createElement('div');
+      card.className = 'plan-card';
+      card.dataset.id = plan.id;
+      card.innerHTML = `
+        <div>
+          <div class="plan-name">${escHtml(plan.name || 'Plano VIP')}</div>
+          <div class="plan-desc">${escHtml(plan.duration || days)}</div>
+        </div>
+        <div class="plan-price">${price}<small>uma vez</small></div>
+      `;
+      card.addEventListener('click', () => selectPlan(plan, card));
+      grid.appendChild(card);
+    });
+  }
+
+  function selectPlan(plan, cardEl) {
+    document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+    cardEl.classList.add('selected');
+    selectedPlan = plan;
+    selectedMethod = null;
+
+    setTimeout(() => showPaymentStep(), 200);
+  }
+
+  // ── Step 3: Payment method ────────────────────────────────────────────────
+
+  function showPaymentStep() {
+    const summary = document.getElementById('payment-summary');
+    const grid = document.getElementById('methods-grid');
+    const btn = document.getElementById('pay-btn');
+    const msg = document.getElementById('payment-msg');
+
+    msg.className = 'message';
+    summary.innerHTML = `Plano: <strong>${escHtml(selectedPlan.name)}</strong> — ${formatPrice(selectedPlan.price, selectedPlan.price_text)}`;
+
+    grid.innerHTML = '';
+
+    const pixBtn = document.createElement('div');
+    pixBtn.className = 'method-btn';
+    pixBtn.dataset.method = 'pix';
+    pixBtn.innerHTML = '<div class="method-icon">⚡</div><div class="method-label">PIX</div><div class="method-hint">Instantâneo</div>';
+    pixBtn.addEventListener('click', () => selectMethod('pix', pixBtn));
+    grid.appendChild(pixBtn);
+
+    const cardBtn = document.createElement('div');
+    cardBtn.className = 'method-btn';
+    cardBtn.dataset.method = 'card';
+    cardBtn.innerHTML = '<div class="method-icon">💳</div><div class="method-label">Cartão</div><div class="method-hint">Checkout seguro</div>';
+    cardBtn.addEventListener('click', () => selectMethod('card', cardBtn));
+    grid.appendChild(cardBtn);
+
+    btn.disabled = true;
+    goTo('payment');
+  }
+
+  function selectMethod(method, el) {
+    document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedMethod = method;
+    document.getElementById('pay-btn').disabled = false;
+  }
+
+  // ── Start payment ─────────────────────────────────────────────────────────
+
+  async function startPayment() {
+    if (!selectedMethod || !selectedPlan || !userData) return;
+    const btn = document.getElementById('pay-btn');
+    const msg = document.getElementById('payment-msg');
+
+    msg.className = 'message';
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>Gerando pagamento...';
+
+    const { ok, data } = await callFn({
+      action: 'create_payment',
+      user_id: userData.user_id,
+      email: userData.email,
+      plan_id: selectedPlan.id,
+      payment_method: selectedMethod,
+    });
+
+    btn.disabled = false;
+    btn.textContent = 'Pagar agora';
+
+    if (!ok || !data.success) {
+      msg.className = 'message error';
+      msg.textContent = data.error || 'Falha ao gerar pagamento. Tente novamente.';
+      return;
+    }
+
+    if (data.already_active) {
+      showSuccess(data.expires_at);
+      return;
+    }
+
+    paymentSession = {
+      payment_id: data.payment_id,
+      external_payment_id: data.external_payment_id,
+      payment_url: data.payment_url,
+      pix_copy_paste: data.pix_copy_paste,
+      pix_qrcode: data.pix_qrcode,
+      expires_at: data.expires_at,
+    };
+
+    if (selectedMethod === 'pix') {
+      showPixStep();
+    } else {
+      showCardStep();
+    }
+  }
+
+  // ── Step 4a: PIX ──────────────────────────────────────────────────────────
+
+  function showPixStep() {
+    const code = paymentSession.pix_copy_paste || '';
+    document.getElementById('pix-code').textContent = code;
+    document.getElementById('pix-msg').className = 'message';
+
+    const canvas = document.getElementById('qr-canvas');
+    const fallback = document.getElementById('qr-fallback');
+
+    if (paymentSession.pix_qrcode) {
+      // Use image returned by AbacatePay if available
+      const isDataUri = paymentSession.pix_qrcode.startsWith('data:');
+      fallback.src = isDataUri ? paymentSession.pix_qrcode : 'data:image/png;base64,' + paymentSession.pix_qrcode;
+      fallback.style.display = 'block';
+      canvas.style.display = 'none';
+    } else if (code && typeof QRCode !== 'undefined') {
+      canvas.style.display = 'block';
+      fallback.style.display = 'none';
+      QRCode.toCanvas(canvas, code, { width: 200, margin: 1, color: { dark: '#332d2b', light: '#ffffff' } });
+    } else {
+      canvas.style.display = 'none';
+      fallback.style.display = 'none';
+    }
+
+    startCountdown(paymentSession.expires_at, 'pix-timer', () => showExpired());
+    startPolling();
+    goTo('pix');
+  }
+
+  function copyPix() {
+    const code = document.getElementById('pix-code').textContent;
+    const btn = document.getElementById('copy-btn');
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = 'Copiado!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2500);
+    }).catch(() => {
+      // Fallback for older browsers
+      const ta = document.createElement('textarea');
+      ta.value = code;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      btn.textContent = 'Copiado!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2500);
+    });
+  }
+
+  // ── Step 4b: Card ─────────────────────────────────────────────────────────
+
+  function showCardStep() {
+    document.getElementById('card-link').href = paymentSession.payment_url || '#';
+    document.getElementById('card-msg').className = 'message';
+    startCountdown(paymentSession.expires_at, 'card-timer', () => showExpired());
+    startPolling();
+    goTo('card');
+  }
+
+  // ── Countdown ─────────────────────────────────────────────────────────────
+
+  function startCountdown(expiresAt, timerId, onExpire) {
+    clearInterval(countdownTimer);
+    const timerEl = document.getElementById(timerId);
+    function tick() {
+      const remaining = Math.max(0, Math.ceil((new Date(expiresAt) - Date.now()) / 1000));
+      const m = Math.floor(remaining / 60);
+      const s = remaining % 60;
+      timerEl.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+      if (remaining <= 0) {
+        clearInterval(countdownTimer);
+        if (onExpire) onExpire();
+      }
+    }
+    tick();
+    countdownTimer = setInterval(tick, 1000);
+  }
+
+  // ── Polling ───────────────────────────────────────────────────────────────
+
+  function startPolling() {
+    clearInterval(pollTimer);
+    pollTimer = setInterval(pollStatus, 5000);
+  }
+
+  function stopPolling() {
+    clearInterval(pollTimer);
+    clearInterval(countdownTimer);
+    pollTimer = null;
+    countdownTimer = null;
+  }
+
+  async function pollStatus() {
+    if (!paymentSession || !userData) return;
+    try {
+      const { ok, data } = await callFn({
+        action: 'check_status',
+        payment_id: paymentSession.payment_id,
+        user_id: userData.user_id,
+        email: userData.email,
+        external_payment_id: paymentSession.external_payment_id,
+      });
+      if (!ok) return;
+      if (data.status === 'active') {
+        stopPolling();
+        showSuccess(data.end_date);
+      } else if (data.status === 'expired' || data.status === 'cancelled') {
+        stopPolling();
+        showExpired();
+      }
+    } catch (_) {
+      // Network error — continue polling
+    }
+  }
+
+  // ── Success / Error ───────────────────────────────────────────────────────
+
+  function showSuccess(endDate) {
+    stopPolling();
+    const endDateEl = document.getElementById('success-end-date');
+    if (endDate) {
+      const d = new Date(endDate);
+      endDateEl.textContent = 'Válido até ' + d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+    } else {
+      endDateEl.textContent = '';
+    }
+    goTo('success');
+  }
+
+  function showExpired() {
+    stopPolling();
+    document.getElementById('error-text').textContent = 'O tempo de pagamento expirou. Gere um novo pagamento.';
+    goTo('error');
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+
+  function formatPrice(price, priceText) {
+    if (priceText) return priceText;
+    return 'R$ ' + Number(price).toFixed(2).replace('.', ',');
+  }
+
+  function escHtml(str) {
+    return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // ── Pre-fill email from URL ?email= ─────────────────────────────────────
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    const emailParam = params.get('email');
+    if (emailParam) {
+      const input = document.getElementById('email-input');
+      if (input) input.value = decodeURIComponent(emailParam).trim().toLowerCase();
+    }
+  })();
+</script>
+</body>
+</html>
