@@ -817,7 +817,7 @@
           <p class="opt-sub">Acesse pelo site</p>
           <button type="button" class="opt-btn ios" data-role="trigger">
             <span class="spinner"></span>
-            <span data-role="label">◎ Acessar pelo iPhone</span>
+            <span data-role="label">◎ Acessar pelo Site</span>
           </button>
           <div class="post-status" data-role="status"></div>
         </div>
@@ -968,6 +968,10 @@
           }
 
           btn.addEventListener('click', function (event) {
+            if (platform === 'ios' && showInstagramBanner()) {
+              return;
+            }
+
             openTarget();
 
             var rect = btn.getBoundingClientRect();
@@ -994,18 +998,23 @@
         });
       }
 
-      function setupInstagramBanner() {
+      var instagramBannerReady = false;
+
+      function showInstagramBanner() {
         var ua = navigator.userAgent || '';
         var isInstagram = /Instagram/i.test(ua);
-        if (!isInstagram) return;
+        if (!isInstagram) return false;
 
         var isIOS = /iPhone|iPad|iPod/i.test(ua);
         var banner = document.getElementById('ig-banner');
         var openBtn = document.getElementById('ig-open-btn');
         var skipBtn = document.getElementById('ig-skip-btn');
-        if (!banner || !openBtn || !skipBtn) return;
+        if (!banner || !openBtn || !skipBtn) return false;
 
         requestAnimationFrame(function () { banner.classList.add('show'); });
+
+        if (!instagramBannerReady) {
+          instagramBannerReady = true;
 
         openBtn.addEventListener('click', function () {
           if (isIOS) {
@@ -1026,10 +1035,12 @@
         skipBtn.addEventListener('click', function () {
           banner.classList.remove('show');
         });
+        }
+
+        return true;
       }
 
       document.addEventListener('DOMContentLoaded', function () {
-        setupInstagramBanner();
         setupOptionCards();
         setupScrollReveal();
 
