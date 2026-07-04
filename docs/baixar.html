@@ -850,6 +850,7 @@
 
       var ANDROID_URL = 'https://play.google.com/store/apps/details?id=br.com.edjapps.varaovaroa';
       var IOS_URL = 'https://www.varaovaroa.com.br/';
+      var SITE_URL = 'https://www.varaovaroa.com.br/';
       var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       var STATS = {
@@ -968,10 +969,6 @@
           }
 
           btn.addEventListener('click', function (event) {
-            if (platform === 'ios' && showInstagramBanner()) {
-              return;
-            }
-
             openTarget();
 
             var rect = btn.getBoundingClientRect();
@@ -1027,14 +1024,14 @@
               done();
             }
           } else {
-            var target = window.location.href.replace(/^https?:\/\//, '');
+            var target = SITE_URL.replace(/^https?:\/\//, '');
             window.location.href = 'intent://' + target + '#Intent;scheme=https;package=com.android.chrome;end';
           }
         });
 
-        skipBtn.addEventListener('click', function () {
-          banner.classList.remove('show');
-        });
+          skipBtn.addEventListener('click', function () {
+            window.location.href = SITE_URL;
+          });
         }
 
         return true;
