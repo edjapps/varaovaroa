@@ -398,6 +398,7 @@
       box-shadow: 0 14px 28px rgba(22, 22, 80, 0.08);
       overflow: hidden;
       transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
       transition: transform 0.22s ease, box-shadow 0.22s ease;
     }
 
@@ -422,10 +423,12 @@
     .opt-card.is-flipped {
       min-height: 360px;
       transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
     }
 
     .opt-card.is-flipped:hover {
       transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
     }
 
     .opt-card.is-flipped > :not(.instagram-flip-panel) {
@@ -449,7 +452,9 @@
       opacity: 0;
       pointer-events: none;
       transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
       backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
       transition: opacity 0.18s ease;
     }
 
@@ -999,7 +1004,9 @@
       }
 
       function isInstagramBrowser() {
-        return /Instagram/i.test(navigator.userAgent || '');
+        var ua = navigator.userAgent || '';
+        var referrer = document.referrer || '';
+        return /Instagram|FB_IAB|FBAN|FBAV/i.test(ua) || /instagram|l\.instagram\.com/i.test(referrer);
       }
 
       function openSiteInBrowser() {
