@@ -383,7 +383,7 @@ canvas#qr-canvas{border-radius:12px;border:1px solid #eae2de}
     const fallback = document.getElementById('qr-fallback');
 
     if (paymentSession.pix_qrcode) {
-      // Use image returned by AbacatePay if available
+      // Use image returned by the external-gateway if available
       const isDataUri = paymentSession.pix_qrcode.startsWith('data:');
       fallback.src = isDataUri ? paymentSession.pix_qrcode : 'data:image/png;base64,' + paymentSession.pix_qrcode;
       fallback.style.display = 'block';
