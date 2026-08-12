@@ -69,6 +69,12 @@ canvas#qr-canvas{border-radius:12px;border:1px solid #eae2de}
 .selected-summary strong{color:#332d2b}
 .card-link-btn{display:block;text-decoration:none;margin-bottom:12px}
 .security-note{font-size:11px;color:#a0938e;text-align:center;margin-top:16px}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(51,45,43,.55);align-items:center;justify-content:center;padding:16px;z-index:1000}
+.modal-overlay.active{display:flex}
+.modal-box{width:100%;max-width:380px;background:#fff;border-radius:20px;padding:24px 22px;box-shadow:0 20px 40px rgba(0,0,0,.15);text-align:center}
+.modal-icon{font-size:36px;margin-bottom:10px}
+.modal-box h2{font-size:17px;font-weight:800;margin:0 0 8px;color:#332d2b}
+.modal-box p{font-size:13.5px;color:#5a4d4a;line-height:1.5;margin:0 0 20px}
 </style>
 </head>
 <body>
@@ -107,7 +113,7 @@ canvas#qr-canvas{border-radius:12px;border:1px solid #eae2de}
     <h1>Como pagar?</h1>
     <div id="payment-summary" class="selected-summary"></div>
     <div id="methods-grid" class="methods"></div>
-    <button class="btn btn-primary" id="pay-btn" onclick="startPayment()" disabled>Pagar agora</button>
+    <button class="btn btn-primary" id="pay-btn" onclick="showPayConfirmModal()" disabled>Pagar agora</button>
     <div id="payment-msg" class="message"></div>
   </div>
 
@@ -162,6 +168,15 @@ canvas#qr-canvas{border-radius:12px;border:1px solid #eae2de}
     <p class="subtitle" id="error-text">O tempo de pagamento expirou ou foi cancelado.</p>
     <button class="btn btn-primary" onclick="goTo('plans')" style="margin-bottom:10px">Tentar novamente</button>
     <button class="btn btn-outline" onclick="goTo('email')">Trocar e-mail</button>
+  </div>
+</div>
+
+<div id="pay-confirm-modal" class="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-icon">⏳</div>
+    <h2>Antes de continuar</h2>
+    <p>Depois de pagar, aguarde a confirmação aqui nesta página — pode levar alguns minutos. Não feche esta aba antes de ver a tela de sucesso, ou a confirmação pode não ser detectada automaticamente.</p>
+    <button class="btn btn-primary" id="pay-confirm-btn" onclick="confirmAndStartPayment()">Entendi, continuar</button>
   </div>
 </div>
 
@@ -305,12 +320,14 @@ canvas#qr-canvas{border-radius:12px;border:1px solid #eae2de}
     pixBtn.addEventListener('click', () => selectMethod('pix', pixBtn));
     grid.appendChild(pixBtn);
 
-    const cardBtn = document.createElement('div');
-    cardBtn.className = 'method-btn';
-    cardBtn.dataset.method = 'card';
-    cardBtn.innerHTML = '<div class="method-icon">💳</div><div class="method-label">Cartão</div><div class="method-hint">Checkout seguro</div>';
-    cardBtn.addEventListener('click', () => selectMethod('card', cardBtn));
-    grid.appendChild(cardBtn);
+    if (selectedPlan.external_method_card === true) {
+      const cardBtn = document.createElement('div');
+      cardBtn.className = 'method-btn';
+      cardBtn.dataset.method = 'card';
+      cardBtn.innerHTML = '<div class="method-icon">💳</div><div class="method-label">Cartão</div><div class="method-hint">Checkout seguro</div>';
+      cardBtn.addEventListener('click', () => selectMethod('card', cardBtn));
+      grid.appendChild(cardBtn);
+    }
 
     btn.disabled = true;
     goTo('payment');
@@ -324,6 +341,20 @@ canvas#qr-canvas{border-radius:12px;border:1px solid #eae2de}
   }
 
   // ── Start payment ─────────────────────────────────────────────────────────
+
+  function showPayConfirmModal() {
+    if (!selectedMethod || !selectedPlan || !userData) return;
+    document.getElementById('pay-confirm-modal').classList.add('active');
+  }
+
+  function hidePayConfirmModal() {
+    document.getElementById('pay-confirm-modal').classList.remove('active');
+  }
+
+  function confirmAndStartPayment() {
+    hidePayConfirmModal();
+    startPayment();
+  }
 
   async function startPayment() {
     if (!selectedMethod || !selectedPlan || !userData) return;
