@@ -337,70 +337,121 @@
             100% { transform: translate(calc(-50% - 80px), calc(-50% + 30px)) scale(1); opacity: 0; }
         }
     </style>
-  <script type="module" crossorigin src="./assets/index-TyjnM-vL.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BHmBLsJa.css">
+  <script type="module" crossorigin src="./assets/index-CSA8if4f.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index--TLfgcEp.css">
   <script type="module">import.meta.url;import("_").catch(()=>1);(async function*(){})().next();window.__vite_is_modern_browser=true</script>
   <script type="module">!function(){if(window.__vite_is_modern_browser)return;console.warn("vite: loading legacy chunks, syntax error above and the same error below should be ignored");var e=document.getElementById("vite-legacy-polyfill"),n=document.createElement("script");n.src=e.src,n.onload=function(){System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))},document.body.appendChild(n)}();</script>
 </head>
 
 <body class="bg-[#FDFBF7]">
-    <div id="root">
-        <div id="loading-screen"
-            style="display: flex; align-items: center; justify-content: center; height: 100vh; background: #FDFBF7; padding: 24px;">
-            <div
-                style="display: flex; flex-direction: column; align-items: center; gap: 24px; max-width: 340px; width: 100%; text-align: center;">
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
-                    <img src="./icon4.png" alt="Varão Varoa"
-                        style="width: 80px; height: 80px; animation: logoPulse 2.2s ease-in-out infinite;" />
-                    <div>
-                        <p id="loader-verse-text"
-                            style="margin: 0; font-size: 14px; color: #332D2B; font-weight: 600;">
-                            “Confie no Senhor de todo o coração.”
-                        </p>
-                        <p id="loader-verse-ref"
-                            style="margin-top: 4px; margin-bottom: 0; font-size: 12px; color: #A0938E;">
-                            Provérbios 3:5
-                        </p>
-                        <p
-                            style="margin-top: 8px; margin-bottom: 0; font-size: 10px; color: #C2B3AE; letter-spacing: 0.25em; text-transform: uppercase;">
-                            ✝ Versículo do dia
-                        </p>
+    <div id="root"></div>
+    <div id="loading-screen" class="initial-loading-screen">
+            <div class="initial-loading-glow initial-loading-glow-warm"></div>
+            <div class="initial-loading-glow initial-loading-glow-cool"></div>
+            <div class="initial-loading-spark initial-loading-spark-one">✦</div>
+            <div class="initial-loading-spark initial-loading-spark-two">✦</div>
+            <div class="initial-loading-spark initial-loading-spark-three">✦</div>
+
+            <div class="initial-loading-content">
+                <div class="initial-loading-orbit-stage" aria-hidden="true">
+                    <div class="initial-loading-ring initial-loading-ring-outer"></div>
+                    <div class="initial-loading-ring initial-loading-ring-middle"></div>
+                    <div class="initial-loading-ring initial-loading-ring-inner"></div>
+
+                    <img src="./icon4.png" alt="" class="initial-loading-logo" />
+
+                    <div class="initial-loading-orbit initial-loading-orbit-love">
+                        <span class="initial-loading-orbit-icon initial-loading-orbit-icon-love">♥</span>
+                    </div>
+                    <div class="initial-loading-orbit initial-loading-orbit-bible">
+                        <span class="initial-loading-orbit-icon initial-loading-orbit-icon-bible">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M4 5.5C4 4.7 4.7 4 5.5 4H10c1.1 0 2 .9 2 2v14c0-1.1-.9-2-2-2H5.5C4.7 18 4 17.3 4 16.5v-11Z"></path>
+                                <path d="M20 5.5C20 4.7 19.3 4 18.5 4H14c-1.1 0-2 .9-2 2v14c0-1.1.9-2 2-2h4.5c.8 0 1.5-.7 1.5-1.5v-11Z"></path>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="initial-loading-orbit initial-loading-orbit-shine">
+                        <span class="initial-loading-orbit-icon initial-loading-orbit-icon-shine">✦</span>
                     </div>
                 </div>
-                <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px;">
-                    <span
-                        style="width: 8px; height: 8px; border-radius: 999px; background: #D67B6B; animation: dotBounce 1s infinite;"></span>
-                    <span
-                        style="width: 8px; height: 8px; border-radius: 999px; background: rgba(214,123,107,0.7); animation: dotBounce 1s infinite 0.15s;"></span>
-                    <span
-                        style="width: 8px; height: 8px; border-radius: 999px; background: rgba(214,123,107,0.5); animation: dotBounce 1s infinite 0.3s;"></span>
+
+                <h1 class="initial-loading-brand"><span>Varão</span> <span>Varoa</span></h1>
+
+                <div class="initial-loading-card">
+                    <div class="initial-loading-card-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 5.5C4 4.7 4.7 4 5.5 4H10c1.1 0 2 .9 2 2v14c0-1.1-.9-2-2-2H5.5C4.7 18 4 17.3 4 16.5v-11Z"></path>
+                            <path d="M20 5.5C20 4.7 19.3 4 18.5 4H14c-1.1 0-2 .9-2 2v14c0-1.1.9-2 2-2h4.5c.8 0 1.5-.7 1.5-1.5v-11Z"></path>
+                        </svg>
+                    </div>
+                    <p id="loader-verse-text" class="initial-loading-verse-text">
+                        “Confie no Senhor de todo o coração.”
+                    </p>
+                    <p id="loader-verse-ref" class="initial-loading-verse-ref">
+                        Provérbios 3:5
+                    </p>
                 </div>
+
+                <div class="initial-loading-dots" aria-label="Carregando">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <p class="initial-loading-preparing">Preparando sua experiência...</p>                
             </div>
             <style>
-                @keyframes logoPulse {
-                    0% {
-                        transform: scale(1);
-                    }
-                    50% {
-                        transform: scale(1.04);
-                    }
-                    100% {
-                        transform: scale(1);
-                    }
-                }
-
-                @keyframes dotBounce {
-                    0%, 80%, 100% {
-                        transform: translateY(0);
-                        opacity: 0.4;
-                    }
-                    40% {
-                        transform: translateY(-6px);
-                        opacity: 1;
-                    }
-                }
+                .initial-loading-screen{position:fixed;inset:0;z-index:2147483647;min-height:100vh;min-height:100dvh;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:22px 20px;background:radial-gradient(circle at 26% 18%,rgba(255,116,106,.22),transparent 34%),radial-gradient(circle at 78% 34%,rgba(79,163,255,.20),transparent 36%),linear-gradient(160deg,#fffaf6 0%,#fff3ef 42%,#f8fbff 100%);isolation:isolate;contain:layout style paint;}
+                .initial-loading-screen,.initial-loading-screen *,.initial-loading-screen *::before,.initial-loading-screen *::after{box-sizing:border-box;}
+                .initial-loading-glow{position:absolute;border-radius:999px;filter:blur(18px);opacity:.55;pointer-events:none;}
+                .initial-loading-glow-warm{width:280px;height:280px;top:7%;left:-86px;background:rgba(255,128,118,.22);}
+                .initial-loading-glow-cool{width:300px;height:300px;top:20%;right:-112px;background:rgba(62,152,255,.20);}
+                .initial-loading-content{position:relative;z-index:1;width:min(100%,430px);height:min(760px,calc(100vh - 44px));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:Inter,Arial,sans-serif;}
+                .initial-loading-orbit-stage{position:relative;width:min(68vw,270px);aspect-ratio:1;margin-bottom:18px;}
+                .initial-loading-ring{position:absolute;inset:50%;border-radius:999px;border:2px solid rgba(255,255,255,.78);box-shadow:0 0 18px rgba(255,255,255,.82),inset 0 0 22px rgba(255,255,255,.45);transform:translate(-50%,-50%);}
+                .initial-loading-ring-outer{width:118%;height:118%;opacity:.36;}
+                .initial-loading-ring-middle{width:84%;height:84%;opacity:.95;}
+                .initial-loading-ring-inner{width:50%;height:50%;opacity:.44;}
+                .initial-loading-logo{position:absolute;width:34%;height:34%;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:24px;filter:drop-shadow(0 16px 28px rgba(0,88,180,.20)) drop-shadow(0 0 28px rgba(34,153,255,.22));animation:initialLoadingLogoPulse 2.3s ease-in-out infinite;}
+                .initial-loading-orbit{position:absolute;inset:8%;border-radius:999px;animation:initialLoadingOrbitSpin 10s linear infinite;}
+                .initial-loading-orbit-icon{position:absolute;left:50%;top:-15px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;border-radius:999px;color:#fff;font-size:22px;font-weight:800;line-height:1;box-shadow:0 10px 22px rgba(75,54,47,.18),inset 0 1px 8px rgba(255,255,255,.36);transform:translateX(-50%);animation:initialLoadingOrbitIconCounter 10s linear infinite;}
+                .initial-loading-orbit-icon svg{width:24px;height:24px;display:block;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}
+                .initial-loading-orbit-love{animation-duration:12s;animation-delay:-3.5s;}
+                .initial-loading-orbit-bible{inset:9%;animation-duration:14s;animation-delay:-8s;}
+                .initial-loading-orbit-shine{inset:10%;animation-duration:11s;animation-delay:-1s;}
+                .initial-loading-orbit-love .initial-loading-orbit-icon{animation-duration:12s;animation-delay:-3.5s;}
+                .initial-loading-orbit-bible .initial-loading-orbit-icon{animation-duration:14s;animation-delay:-8s;}
+                .initial-loading-orbit-shine .initial-loading-orbit-icon{animation-duration:11s;animation-delay:-1s;}
+                .initial-loading-orbit-icon-love{background:linear-gradient(145deg,#ff8a82,#ef4c61);}
+                .initial-loading-orbit-icon-bible{background:linear-gradient(145deg,#49a7ff,#0969d8);font-size:24px;}
+                .initial-loading-orbit-icon-shine{background:linear-gradient(145deg,#ffd76a,#f5a623);}
+                .initial-loading-brand{margin:0 0 18px;font-family:'Playfair Display',Georgia,serif;font-size:clamp(27px,7.2vw,36px);line-height:1;font-weight:800;}
+                .initial-loading-brand span:first-child{color:#2588de;}
+                .initial-loading-brand span:last-child{color:#e42e76;}
+                .initial-loading-card{width:min(100%,300px);min-height:170px;padding:18px 20px 17px;border:1px solid rgba(226,210,202,.92);border-radius:20px;background:rgba(255,255,255,.74);box-shadow:0 22px 42px rgba(93,75,66,.08);backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+                .initial-loading-card-icon{display:flex;align-items:center;justify-content:center;width:30px;height:30px;color:#2588de;margin:0 auto 10px;line-height:1;text-align:center;flex:0 0 30px;}
+                .initial-loading-card-icon svg{width:30px;height:30px;display:block;fill:none;stroke:currentColor;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;}
+                .initial-loading-verse-text{width:100%;min-height:64px;margin:0;color:#332d2b;font-family:Georgia,'Times New Roman',serif;font-size:clamp(16px,4.5vw,20px);line-height:1.26;text-wrap:balance;}
+                .initial-loading-verse-ref{margin:12px 0 0;color:#ef6b62;font-size:clamp(18px,5vw,22px);line-height:1.1;font-weight:800;}
+                .initial-loading-dots{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:20px;}
+                .initial-loading-dots span{width:13px;height:13px;border-radius:999px;animation:initialLoadingDotBounce 1.25s ease-in-out infinite;}
+                .initial-loading-dots span:nth-child(1){background:#ef6b62;}
+                .initial-loading-dots span:nth-child(2){background:#2588de;animation-delay:.15s;}
+                .initial-loading-dots span:nth-child(3){background:#36aa65;animation-delay:.3s;}
+                .initial-loading-preparing{margin:18px 0 0;color:#8d746d;font-size:15px;font-weight:650;}
+                .initial-loading-fresh-verse{margin:38px 0 0;color:#8d746d;font-size:13px;font-weight:650;}
+                .initial-loading-spark{position:absolute;color:rgba(255,255,255,.95);text-shadow:0 0 16px rgba(255,255,255,.95);animation:initialLoadingSparkTwinkle 2.8s ease-in-out infinite;pointer-events:none;}
+                .initial-loading-spark-one{top:12%;left:17%;font-size:24px;}
+                .initial-loading-spark-two{top:22%;right:14%;font-size:34px;animation-delay:.8s;}
+                .initial-loading-spark-three{bottom:31%;left:12%;font-size:26px;animation-delay:1.5s;}
+                @keyframes initialLoadingLogoPulse{0%,100%{transform:translate(-50%,-50%) scale(1);}50%{transform:translate(-50%,-50%) scale(1.07);}}
+                @keyframes initialLoadingOrbitSpin{to{transform:rotate(360deg);}}
+                @keyframes initialLoadingOrbitIconCounter{to{transform:translateX(-50%) rotate(-360deg);}}
+                @keyframes initialLoadingDotBounce{0%,80%,100%{transform:translateY(0) scale(.82);opacity:.68;}40%{transform:translateY(-8px) scale(1);opacity:1;}}
+                @keyframes initialLoadingSparkTwinkle{0%,100%{opacity:.28;transform:scale(.8);}50%{opacity:1;transform:scale(1.08);}}
+                @media(max-height:720px){.initial-loading-content{height:calc(100vh - 32px);}.initial-loading-orbit-stage{width:min(52vw,220px);margin-bottom:12px;}.initial-loading-brand{margin-bottom:16px;}.initial-loading-card{min-height:150px;padding:16px 18px 15px;}.initial-loading-verse-text{min-height:56px;}.initial-loading-fresh-verse{margin-top:22px;}}
+                @media(prefers-reduced-motion:reduce){.initial-loading-logo,.initial-loading-orbit,.initial-loading-orbit-icon,.initial-loading-dots span,.initial-loading-spark{animation:none;}}
             </style>
-        </div>
     </div>
 
     <!-- Vite will inject scripts here, but we need the entry point -->
@@ -558,53 +609,43 @@
             { text: 'Permaneça no amor.', reference: 'João 15:9' }
         ];
 
-        function getVerseOfDayForToday() {
+        function getRandomVerseForAccess() {
             try {
-                var today = new Date();
-                var dateKey = today.toISOString().slice(0, 10);
-                var stored = localStorage.getItem('varaovaroa_verse_of_day');
-                if (stored) {
-                    var parsed = JSON.parse(stored);
-                    if (parsed && parsed.date === dateKey && parsed.verse) {
-                        return parsed.verse;
-                    }
-                }
-                var day = today.getDate(); // 1-31
-                var index = (day - 1) % VERSES_OF_DAY.length;
+                var index = Math.floor(Math.random() * VERSES_OF_DAY.length);
                 var verse = VERSES_OF_DAY[index];
-                localStorage.setItem('varaovaroa_verse_of_day', JSON.stringify({ date: dateKey, verse: verse }));
+                window.__VARAOVAROA_LOADING_VERSE__ = verse;
                 return verse;
             } catch (e) {
+                window.__VARAOVAROA_LOADING_VERSE__ = VERSES_OF_DAY[0];
                 return VERSES_OF_DAY[0];
             }
         }
 
         (function () {
             try {
-                var verse = getVerseOfDayForToday();
+                var verse = getRandomVerseForAccess();
                 var textEl = document.getElementById('loader-verse-text');
                 var refEl = document.getElementById('loader-verse-ref');
                 if (verse && textEl && refEl) {
                     textEl.textContent = '“' + verse.text + '”';
                     refEl.textContent = verse.reference;
+                    window.__VARAOVAROA_LOADING_VERSE__ = verse;
                 }
             } catch (e) { }
         })();
 
-        window.addEventListener('load', function () {
-            setTimeout(function () {
-                var loader = document.getElementById('loading-screen');
-                if (loader) {
-                    loader.style.opacity = '0';
-                    loader.style.transition = 'opacity 0.5s ease';
-                    setTimeout(function () { loader.style.display = 'none'; }, 500);
-                }
-            }, 2000);
-        });
+        window.__VARAOVAROA_HIDE_INITIAL_LOADER__ = function () {
+            var loader = document.getElementById('loading-screen');
+            if (!loader || loader.getAttribute('data-hiding') === 'true') return;
+            loader.setAttribute('data-hiding', 'true');
+            loader.style.opacity = '0';
+            loader.style.transition = 'opacity 0.45s ease';
+            setTimeout(function () { loader.style.display = 'none'; }, 450);
+        };
     </script>
   <script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
   <script nomodule crossorigin id="vite-legacy-polyfill" src="./assets/polyfills-legacy-CpPHB_ue.js"></script>
-  <script nomodule crossorigin id="vite-legacy-entry" data-src="./assets/index-legacy-BkBy9Vhw.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
+  <script nomodule crossorigin id="vite-legacy-entry" data-src="./assets/index-legacy-BepqPXUP.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
 </body>
 
 </html>
