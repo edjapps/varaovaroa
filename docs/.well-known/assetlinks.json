@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "br.com.edjapps.varaovaroa",
+      "sha256_cert_fingerprints": [
+        "B9:49:0C:F2:8F:05:EC:D8:22:DD:A7:EF:C0:24:88:7D:DC:CF:07:AF:62:15:81:F0:33:FA:76:B6:0E:B4:30:89"
+      ]
+    }
+  }
+]
