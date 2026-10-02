@@ -18,6 +18,19 @@
         })();
     </script>
 
+    <script>
+        // Aplica o mesmo modo escuro do app (localStorage "varaovaroa_app_dark") antes da
+        // primeira pintura, pra tela de loading inicial estática (abaixo) não piscar clara
+        // antes do React montar e aplicar a classe app-dark via useEffect.
+        (function() {
+            try {
+                if (localStorage.getItem('varaovaroa_app_dark') === '1') {
+                    document.documentElement.classList.add('app-dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
+
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet">
@@ -32,6 +45,10 @@
             -webkit-user-select: none;
                -moz-user-select: none;
                     user-select: none;
+        }
+
+        html.app-dark body {
+            background-color: #0D1117;
         }
 
         h1 {
@@ -337,8 +354,8 @@
             100% { transform: translate(calc(-50% - 80px), calc(-50% + 30px)) scale(1); opacity: 0; }
         }
     </style>
-  <script type="module" crossorigin src="./assets/index-vRi1yaay.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-D3cb_voz.css">
+  <script type="module" crossorigin src="./assets/index-CbqsnQiF.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DNkDGvt8.css">
   <script type="module">import.meta.url;import("_").catch(()=>1);(async function*(){})().next();window.__vite_is_modern_browser=true</script>
   <script type="module">!function(){if(window.__vite_is_modern_browser)return;console.warn("vite: loading legacy chunks, syntax error above and the same error below should be ignored");var e=document.getElementById("vite-legacy-polyfill"),n=document.createElement("script");n.src=e.src,n.onload=function(){System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))},document.body.appendChild(n)}();</script>
 </head>
@@ -455,6 +472,11 @@
                 @keyframes initialLoadingSparkTwinkle{0%,100%{opacity:.28;transform:scale(.8);}50%{opacity:1;transform:scale(1.08);}}
                 @media(max-height:720px){.initial-loading-content{height:calc(100vh - 32px);}.initial-loading-orbit-stage{width:min(52vw,220px);margin-bottom:12px;}.initial-loading-brand{margin-bottom:16px;}.initial-loading-card{margin-bottom:18px;padding:14px 20px 12px;}.initial-loading-verse-text{min-height:56px;}.initial-loading-fresh-verse{margin-top:22px;}}
                 @media(prefers-reduced-motion:reduce){.initial-loading-logo,.initial-loading-orbit,.initial-loading-orbit-icon,.initial-loading-dots span,.initial-loading-spark{animation:none;}}
+
+                html.app-dark .initial-loading-screen{background:radial-gradient(circle at 26% 18%,rgba(255,116,106,.14),transparent 34%),radial-gradient(circle at 78% 34%,rgba(79,163,255,.14),transparent 36%),linear-gradient(160deg,#0D1117 0%,#111820 52%,#0D1117 100%);}
+                html.app-dark .initial-loading-card{background:rgba(255,255,255,.06);box-shadow:0 12px 26px rgba(0,0,0,.35);}
+                html.app-dark .initial-loading-verse-text{color:#E6EDF3;}
+                html.app-dark .initial-loading-preparing,html.app-dark .initial-loading-fresh-verse{color:#8B949E;}
             </style>
     </div>
 
@@ -653,7 +675,7 @@
     </script>
   <script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
   <script nomodule crossorigin id="vite-legacy-polyfill" src="./assets/polyfills-legacy-BoahCABl.js"></script>
-  <script nomodule crossorigin id="vite-legacy-entry" data-src="./assets/index-legacy-Bw7DUYFb.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
+  <script nomodule crossorigin id="vite-legacy-entry" data-src="./assets/index-legacy-B4M6wDfH.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
 </body>
 
 </html>
